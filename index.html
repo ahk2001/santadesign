@@ -15,10 +15,34 @@
 </head>
 <body>
 
-    <!-- Glitch Preloader -->
-    <div id="preloader">
-        <div class="glitch-wrapper">
-            <img src="assets/logo.png" alt="Santa Design Preloader" class="glitch-logo">
+    <!-- Tactile Remotion Preloader -->
+    <div id="preloader" class="tactile-preloader">
+        <div class="paper-texture"></div>
+        <div class="logo-assembly">
+            <!-- Vintage Stamp Overlay applied to the logo container -->
+            <div class="stamp-overlay"></div>
+            
+            <!-- Layered logo approach using original PNG -->
+            <div class="logo-layers">
+                <!-- Center Disc -->
+                <img src="assets/logo.png" class="logo-part logo-center" alt="Center">
+                
+                <!-- Rings -->
+                <img src="assets/logo.png" class="logo-part logo-rings" alt="Rings">
+                
+                <!-- Top Text -->
+                <div class="logo-part-wrapper text-top-wrapper">
+                    <img src="assets/logo.png" class="logo-part logo-text-top" alt="Top Text">
+                </div>
+                
+                <!-- Bottom Text -->
+                <div class="logo-part-wrapper text-bottom-wrapper">
+                    <img src="assets/logo.png" class="logo-part logo-text-bottom" alt="Bottom Text">
+                </div>
+                
+                <!-- Stars & Details (Full reveal on top) -->
+                <img src="assets/logo.png" class="logo-part logo-stars" alt="Stars">
+            </div>
         </div>
     </div>
 
@@ -56,12 +80,140 @@
         </div>
     </section>
 
-    <!-- Content below hero to allow scrolling -->
-    <section class="dummy-scroll-section">
-        <div class="container">
-            <h2>MAIS PROJETOS EM BREVE</h2>
+    <!-- About Section: Where Performance meets Design -->
+    <section class="about-section">
+        <div class="about-container">
+            <h2>
+                <span class="text-white">Where Performance</span><br>
+                <span class="text-orange">meets Design.</span>
+            </h2>
+            
+            <p class="reveal-text">
+                At Santa Design, we believe that an athlete's image is as decisive as their performance on the field. 
+                With over 4 years of specialization in the elite sports market, we transform careers into iconic visual brands.
+            </p>
+            
+            <p class="reveal-text">
+                From matchday flyers to global campaigns, our signature is present in 7 countries, connecting 
+                high-level players to their fans through impeccable and aggressive aesthetics. With over 200 
+                exclusive artworks in our portfolio, we don't just deliver design; we deliver visual authority 
+                for those born to win.
+            </p>
         </div>
     </section>
+
+    <!-- 1. Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item fade-up">
+                <div class="stat-number">4<span class="text-orange">+</span></div>
+                <h3>YEARS IN THE MARKET</h3>
+                <p>Specialization in elite sports design</p>
+                <div class="stat-line"></div>
+            </div>
+            <div class="stat-item fade-up" style="transition-delay: 0.2s;">
+                <div class="stat-number">7</div>
+                <h3>COUNTRIES REACHED</h3>
+                <p>Global presence in professional football</p>
+                <div class="stat-line"></div>
+            </div>
+            <div class="stat-item fade-up" style="transition-delay: 0.4s;">
+                <div class="stat-number">200<span class="text-orange">+</span></div>
+                <h3>EXCLUSIVE ARTWORKS</h3>
+                <p>For high-performance athletes</p>
+                <div class="stat-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Portfolio Gallery -->
+    <section class="portfolio-section px-5">
+        <div class="portfolio-grid">
+            <div class="portfolio-item img-large fade-up">
+                <!-- Using provided images -->
+                <img src="assets/desktop/img1.png" alt="Art 1">
+                <div class="portfolio-overlay">
+                    <span class="orange-dot"></span>
+                    <h3>PRO ATHLETE V1</h3>
+                </div>
+            </div>
+            <div class="portfolio-item fade-up">
+                <img src="assets/desktop/img2.png" alt="Art 2">
+                <div class="portfolio-overlay">
+                    <span class="orange-dot"></span>
+                    <h3>PRO ATHLETE V2</h3>
+                </div>
+            </div>
+            <div class="portfolio-item fade-up">
+                <img src="assets/desktop/img3.png" alt="Art 3">
+                <div class="portfolio-overlay">
+                    <span class="orange-dot"></span>
+                    <h3>PRO ATHLETE V3</h3>
+                </div>
+            </div>
+            <div class="portfolio-item img-wide fade-up">
+                <img src="assets/desktop/img4.png" alt="Art 4">
+                <div class="portfolio-overlay">
+                    <span class="orange-dot"></span>
+                    <h3>MATCHDAY SERIES</h3>
+                </div>
+            </div>
+            <div class="portfolio-item fade-up">
+                <img src="assets/desktop/img5.png" alt="Art 5">
+                <div class="portfolio-overlay">
+                    <span class="orange-dot"></span>
+                    <h3>ELITE GRAPHICS</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Our Process (Before/After Slider) -->
+    <section class="process-section">
+        <h2 class="text-center fade-up"><span class="text-white">OUR PROCESS</span></h2>
+        <div class="before-after-slider fade-up">
+            <!-- Camada Base: Final Art (baixo) -->
+            <div class="image-after">
+                <span class="label label-right">FINAL ART</span>
+                <img src="assets/desktop/img6.png" alt="Final Art">
+            </div>
+            <!-- Camada Cima: Initial Photo (recortada) -->
+            <div class="image-before">
+                <span class="label label-left">INITIAL SOUND</span>
+                <!-- Since we only have final arts, using a different art to simulate 'before' visually for logic testing -->
+                <img src="assets/desktop/img0.png" alt="Initial Photo">
+            </div>
+            <div class="slider-handle">
+                <div class="arrows">↔</div>
+            </div>
+            <input type="range" min="0" max="100" value="50" class="slider" id="processSlider">
+        </div>
+    </section>
+
+    <!-- 4. Some Works Grid -->
+    <section class="more-works-section">
+        <div class="works-grid">
+            <div class="work-item fade-up"><img src="assets/desktop/img7.png" alt="Work 7"><div class="work-overlay">MOMENT</div></div>
+            <div class="work-item fade-up" style="transition-delay: 0.1s;"><img src="assets/desktop/img8.png" alt="Work 8"><div class="work-overlay">CHAMPION</div></div>
+            <div class="work-item fade-up" style="transition-delay: 0.2s;"><img src="assets/desktop/img9.png" alt="Work 9"><div class="work-overlay">AESTHETIC</div></div>
+            <div class="work-item fade-up" style="transition-delay: 0.3s;"><img src="assets/desktop/img1.png" alt="Work 1"><div class="work-overlay">VISION</div></div>
+        </div>
+    </section>
+
+    <!-- 5. CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content fade-up">
+            <h2>READY TO ELEVATE <span class="text-orange">YOUR IMAGE?</span></h2>
+            <a href="https://instagram.com/santa-design" target="_blank" class="btn-primary cta-btn">REQUEST A QUOTE <span class="arrow">&rarr;</span></a>
+        </div>
+    </section>
+
+    <!-- 6. Footer -->
+    <footer class="site-footer">
+        <img src="assets/logo.png" alt="Santa Design Logo" class="footer-logo">
+        <p>Transforming athletes into iconic visual brands since 2020</p>
+        <p class="copyright">© 2024 Santa Design. All rights reserved.</p>
+    </footer>
 
     <script src="main.js"></script>
 </body>

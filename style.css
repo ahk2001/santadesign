@@ -19,46 +19,121 @@ body {
 }
 
 /* =========================================
-   PRELOADER - GLITCH EFFECT
+   TACTILE REMOTION PRELOADER
    ========================================= */
-#preloader {
+:root {
+    /* Define slicing radii for logo parts - can be tweaked easily if needed */
+    --logo-center-radius: 26%;
+    --logo-rings-radius: 58%;
+}
+
+.tactile-preloader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #000;
+    background-color: #0b0b0b; /* Escuro conforme solicitado */
     z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     transition: opacity 1s ease-in-out, visibility 1s;
 }
 
-.glitch-wrapper {
+/* Subtle paper texture overlay for the background */
+.paper-texture {
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.logo-assembly {
+    position: relative;
+    width: clamp(280px, 40vw, 400px);
+    height: clamp(280px, 40vw, 400px);
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
+    filter: drop-shadow(0px 8px 12px rgba(0, 0, 0, 0.4)) drop-shadow(0px 2px 4px rgba(253, 109, 20, 0.2));
 }
 
-.glitch-logo {
-    width: 250px;
-    height: auto;
-    animation: logo-build 0.8s infinite;
+.logo-layers {
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
-@keyframes logo-build {
-    0% { clip-path: inset(100% 0 0 0); opacity: 0; }
-    10% { clip-path: inset(80% 0 0 0); opacity: 1; transform: translateX(-5px); }
-    20% { clip-path: inset(80% 0 0 0); opacity: 0.2; transform: translateX(5px); }
-    30% { clip-path: inset(60% 0 0 0); opacity: 1; transform: translateX(-2px); }
-    40% { clip-path: inset(40% 0 0 0); opacity: 0.5; transform: skewX(10deg); }
-    50% { clip-path: inset(20% 0 0 0); opacity: 1; transform: skewX(0); }
-    60% { clip-path: inset(20% 0 0 0); opacity: 0; }
-    70% { clip-path: inset(0 0 0 0); opacity: 1; transform: scale(1.05); }
-    80% { clip-path: inset(0 0 0 0); opacity: 0.8; transform: scale(1); }
-    90% { clip-path: inset(50% 0 40% 0); opacity: 1; transform: translateX(3px); }
-    100% { clip-path: inset(0 0 0 0); opacity: 1; transform: translateX(0); }
+.logo-part-wrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    will-change: transform, opacity;
+}
+
+.logo-part {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    will-change: transform, opacity;
+}
+
+/* CSS Masks para criar as camadas a partir de uma única imagem */
+.logo-center {
+    -webkit-mask-image: radial-gradient(circle at center, black var(--logo-center-radius), transparent calc(var(--logo-center-radius) + 0.5%));
+    mask-image: radial-gradient(circle at center, black var(--logo-center-radius), transparent calc(var(--logo-center-radius) + 0.5%));
+}
+
+.logo-rings {
+    -webkit-mask-image: radial-gradient(circle at center, transparent var(--logo-center-radius), black calc(var(--logo-center-radius) + 0.5%), black var(--logo-rings-radius), transparent calc(var(--logo-rings-radius) + 0.5%));
+    mask-image: radial-gradient(circle at center, transparent var(--logo-center-radius), black calc(var(--logo-center-radius) + 0.5%), black var(--logo-rings-radius), transparent calc(var(--logo-rings-radius) + 0.5%));
+}
+
+.logo-text-top {
+    -webkit-mask-image: radial-gradient(circle at center, transparent var(--logo-rings-radius), black calc(var(--logo-rings-radius) + 0.5%));
+    mask-image: radial-gradient(circle at center, transparent var(--logo-rings-radius), black calc(var(--logo-rings-radius) + 0.5%));
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%); /* Top half */
+}
+
+.logo-text-bottom {
+    -webkit-mask-image: radial-gradient(circle at center, transparent var(--logo-rings-radius), black calc(var(--logo-rings-radius) + 0.5%));
+    mask-image: radial-gradient(circle at center, transparent var(--logo-rings-radius), black calc(var(--logo-rings-radius) + 0.5%));
+    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%); /* Bottom half */
+}
+
+.logo-stars {
+    /* To reveal any remaining parts beautifully at the end, full image with low opacity base */
+    opacity: 0;
+}
+
+/* Shimmer overlay */
+.stamp-overlay {
+    position: absolute;
+    inset: -20px;
+    background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.3"/%3E%3C/svg%3E');
+    mix-blend-mode: color-dodge;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.1;
+    animation: texture-shimmer 4s steps(4) infinite;
+}
+
+@keyframes texture-shimmer {
+    0% { transform: scale(1) translate(0, 0); }
+    25% { transform: scale(1.02) translate(1px, -1px); }
+    50% { transform: scale(1) translate(-1px, 1px); }
+    75% { transform: scale(1.01) translate(1px, 1px); }
+    100% { transform: scale(1) translate(0, 0); }
 }
 
 /* =========================================
@@ -224,19 +299,434 @@ body {
     100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
-/* Dummy Scroll Section for Testing */
-.dummy-scroll-section {
-    height: 150vh;
+/* =========================================
+   ABOUT SECTION
+   ========================================= */
+.about-section {
+    min-height: 100vh;
     background-color: var(--bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    z-index: 2;
+    z-index: 2; /* Sobrepor o background parallax se ele fosse fixed, mas aqui está fluxo normal */
+    padding: 15vh 5%;
 }
 
-.dummy-scroll-section h2 {
-    font-family: 'Oswald', sans-serif;
-    font-size: 3rem;
-    opacity: 0.5;
+.about-container {
+    max-width: 1200px;
+    width: 100%;
+}
+
+.about-container h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.reveal-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+    line-height: 1.5;
+    margin-bottom: 2.5rem;
+    color: #444444; /* Initial grey color */
+    max-width: 900px;
+}
+
+.word {
+    display: inline-block;
+    color: #333333; /* Default grey, GSAP vai animar isso */
+}
+
+/* =========================================
+   GENERIC UTILS & ANIMATION CLASSES
+   ========================================= */
+.text-center { text-align: center; }
+.px-5 { padding-left: 5%; padding-right: 5%; }
+
+.fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    will-change: opacity, transform;
+}
+
+/* =========================================
+   1. STATS SECTION
+   ========================================= */
+.stats-section {
+    background-color: #050505;
+    padding: 10vh 5%;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.stats-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+}
+
+.stat-item {
+    position: relative;
+    padding: 20px 0;
+}
+
+.stat-number {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 5rem;
+    line-height: 1;
+    color: #ffffff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: baseline;
+}
+
+.stat-item h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #aaaaaa;
+    margin-bottom: 10px;
+}
+
+.stat-item p {
+    font-size: 1rem;
+    color: #666666;
+    line-height: 1.5;
+}
+
+.stat-line {
+    width: 0; /* Anima via GSAP */
+    height: 2px;
+    background-color: #fd6d14;
+    margin-top: 30px;
+}
+
+/* =========================================
+   2. PORTFOLIO GALLERY
+   ========================================= */
+.portfolio-section {
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    background-color: var(--bg-color);
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.portfolio-item {
+    position: relative;
+    grid-column: span 4;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background-color: #111;
+    cursor: pointer;
+}
+
+.portfolio-item.img-large {
+    grid-column: span 8;
+    grid-row: span 2;
+    aspect-ratio: auto;
+}
+
+.portfolio-item.img-wide {
+    grid-column: span 8;
+    aspect-ratio: 16/9;
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.05);
+}
+
+.portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 30px;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+}
+
+.portfolio-overlay h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #fff;
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+}
+
+.portfolio-item:hover .portfolio-overlay h3 {
+    transform: translateY(0);
+}
+
+.orange-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #fd6d14;
+    margin-right: 15px;
+    margin-bottom: 6px;
+}
+
+@media (max-width: 992px) {
+    .portfolio-item, .portfolio-item.img-large, .portfolio-item.img-wide {
+        grid-column: span 6;
+        aspect-ratio: 1;
+    }
+}
+@media (max-width: 576px) {
+    .portfolio-item, .portfolio-item.img-large, .portfolio-item.img-wide {
+        grid-column: span 12;
+    }
+}
+
+/* =========================================
+   3. PROCESS SLIDER 
+   ========================================= */
+.process-section {
+    background-color: #0b0b0b;
+    padding: 15vh 5%;
+    overflow: hidden;
+}
+
+.process-section h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+}
+
+.before-after-slider {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    aspect-ratio: 16/10;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+}
+
+.image-after, .image-before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.image-before {
+    width: 50%; /* Controlado pelo range */
+    border-right: 2px solid white;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.image-after img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-before img {
+    width: 1000px; /* Deve ser do tamanho do container ou usar object-fit */
+    height: 100%;
+    object-fit: cover;
+    object-position: left;
+    max-width: none;
+}
+/* Responsive image size inside slider container */
+.image-before > img, .image-after > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+}
+
+.label {
+    position: absolute;
+    top: 20px;
+    padding: 8px 15px;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    z-index: 10;
+}
+.label-left { left: 20px; }
+.label-right { right: 20px; z-index: 10; }
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    background: transparent;
+    appearance: none;
+    z-index: 5;
+    margin: 0;
+    cursor: ew-resize;
+}
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 40px;
+    height: 100%;
+    background: transparent;
+    cursor: ew-resize;
+}
+
+.slider-handle {
+    position: absolute;
+    top: 0;
+    left: 50%; /* Controlado pelo JS */
+    width: 2px;
+    height: 100%;
+    background-color: white;
+    z-index: 4;
+    pointer-events: none;
+    transform: translateX(-50%);
+}
+
+.slider-handle .arrows {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background-color: #fd6d14;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+/* =========================================
+   4. MORE WORKS GRID
+   ========================================= */
+.more-works-section {
+    padding: 5vh 0;
+}
+
+.works-grid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.work-item {
+    position: relative;
+    flex: 1 1 25%;
+    min-width: 250px;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.work-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.work-item:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+.work-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    backdrop-filter: blur(2px);
+}
+
+.work-item:hover .work-overlay { opacity: 1; }
+
+/* =========================================
+   5. CTA & FOOTER
+   ========================================= */
+.cta-section {
+    padding: 15vh 5%;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.cta-section h2 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    margin-bottom: 40px;
+    font-weight: 900;
+}
+
+.site-footer {
+    padding: 50px 5%;
+    text-align: center;
+    background-color: #000;
+}
+
+.footer-logo {
+    width: 100px;
+    filter: grayscale(1) opacity(0.5);
+    margin-bottom: 20px;
+    transition: filter 0.3s ease;
+}
+
+.site-footer:hover .footer-logo {
+    filter: grayscale(0) opacity(1);
+}
+
+.site-footer p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.site-footer .copyright {
+    color: #444;
+    font-size: 0.8rem;
+    margin-top: 30px;
 }

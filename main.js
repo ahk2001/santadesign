@@ -1,24 +1,108 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Preloader logic
+    // 1. Tactile Remotion Preloader Logic (Layered PNG)
     const preloader = document.getElementById('preloader');
     const body = document.body;
     const heroContent = document.querySelector('.hero-content');
+    
+    // Create new GSAP Timeline for the Remotion style preloader
+    const tl = gsap.timeline({
+        onComplete: () => {
+            // Start the repeating loops for continuous pulse/glow
+            gsap.to(['.logo-center', '.logo-rings'], {
+                scale: 1.025,
+                duration: 2,
+                transformOrigin: "center center",
+                yoyo: true,
+                repeat: -1,
+                ease: "sine.inOut",
+                stagger: {
+                    each: 0.1,
+                    from: "start"
+                }
+            });
 
-    // Simulate load time for glitch effect to show off
-    setTimeout(() => {
-        preloader.style.opacity = '0';
-        setTimeout(() => {
-            preloader.style.visibility = 'hidden';
-            body.style.overflowY = 'auto'; // allow scrolling now
-            
-            // Fade in and translate content up
-            heroContent.style.opacity = '1';
-            heroContent.style.transform = 'translateY(0)';
-            
-            // Initialize Parallax
-            initParallax();
-        }, 1000); // Wait for fade out transition in CSS
-    }, 2500); // Glitch shows for 2.5 seconds
+            gsap.to('.logo-stars', {
+                opacity: 0.6,
+                duration: 1.5,
+                yoyo: true,
+                repeat: -1,
+                ease: "sine.inOut"
+            });
+
+            // Transition out preloader after loop starts
+            setTimeout(() => {
+                transitionToHero();
+            }, 1500);
+        }
+    });
+
+    // Initial state: hide and prepare elements
+    gsap.set('.logo-center', { scale: 0, transformOrigin: 'center center' });
+    gsap.set('.logo-rings', { scale: 0, transformOrigin: 'center center', opacity: 0 });
+    // Text wrappers start displaced and invisible for floating effect
+    gsap.set('.text-top-wrapper', { y: -60, opacity: 0, rotation: -15, transformOrigin: 'center center' });
+    gsap.set('.text-bottom-wrapper', { y: 60, opacity: 0, rotation: 15, transformOrigin: 'center center' });
+    gsap.set('.logo-stars', { scale: 0.8, opacity: 0, transformOrigin: 'center center' });
+
+    // Step 1: Central Disc emerges with a bounce
+    tl.to('.logo-center', {
+        scale: 1,
+        duration: 0.9,
+        ease: "back.out(2)"
+    });
+
+    // Step 2: Rings expanding outward
+    tl.to('.logo-rings', {
+        scale: 1,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power2.out"
+    }, "-=0.4");
+
+    // Step 3: Text arches float in with smooth curving movements
+    tl.to('.text-top-wrapper', {
+        y: 0,
+        opacity: 1,
+        rotation: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    }, "-=0.4");
+    
+    tl.to('.text-bottom-wrapper', {
+        y: 0,
+        opacity: 1,
+        rotation: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    }, "-=1.0");
+
+    // Step 4: Stars gently appear (shows the full logo with an elegant glow transition)
+    tl.to('.logo-stars', {
+        scale: 1,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power2.inOut"
+    }, "-=0.2");
+
+    function transitionToHero() {
+        gsap.to(preloader, {
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.inOut",
+            onComplete: () => {
+                preloader.style.visibility = 'hidden';
+                body.style.overflowY = 'auto'; // allow scroll
+                
+                // Initialize hero animations
+                heroContent.style.opacity = '1';
+                heroContent.style.transform = 'translateY(0)';
+                
+                if (typeof initParallax === "function") {
+                    initParallax();
+                }
+            }
+        });
+    }
 
 
     // 2. Parallax Logic
@@ -101,4 +185,116 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
+
+    // 3. About Section Scroll Logic (Friction & Word Reveal)
+    function initAboutSection() {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Friction effect: makes the text wrapper move up slowly (slower than normal scroll)
+        gsap.to(".about-container", {
+            y: () => -window.innerHeight * 0.15,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".about-section",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // Word reveal setup
+        const revealTexts = document.querySelectorAll('.reveal-text');
+        
+        revealTexts.forEach((text) => {
+            // Split text into words, wrap in spans
+            const content = text.innerText;
+            const words = content.split(' ');
+            
+            // clear contents
+            text.innerHTML = '';
+            
+            const wordsArray = [];
+            words.forEach(word => {
+                const span = document.createElement('span');
+                span.className = 'word';
+                span.innerText = word;
+                // Add a space after each word except the last one if we want, but inline-block + margin could work.
+                // An easier way is just keep it inline but preserve spaces.
+                // Wait, if it's inline-block, trailing spaces inside won't work perfectly. Let's just append TextNode space.
+                text.appendChild(span);
+                text.appendChild(document.createTextNode(' '));
+                wordsArray.push(span);
+            });
+
+            // Animate words color from grey to white over scroll
+            gsap.fromTo(wordsArray, 
+                { color: "#333333" }, 
+                {
+                    color: "#ffffff",
+                    ease: "none",
+                    stagger: 0.1,
+                    scrollTrigger: {
+                        trigger: text,
+                        start: "top 80%", // Animates when it hits the lower part of screen
+                        end: "bottom 50%", // Finishes animating exactly mid-screen
+                        scrub: true
+                    }
+                }
+            );
+        });
+    }
+
+    // 4. Stats Animation Logic
+    function initStatsAnimations() {
+        gsap.utils.toArray('.stat-line').forEach(line => {
+            gsap.to(line, {
+                width: '100%',
+                duration: 1.5,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: line,
+                    start: "top 85%"
+                }
+            });
+        });
+    }
+
+    // 5. Process Before/After Slider
+    function initProcessSlider() {
+        const slider = document.getElementById('processSlider');
+        const beforeImage = document.querySelector('.image-before');
+        const handle = document.querySelector('.slider-handle');
+
+        if (slider && beforeImage && handle) {
+            slider.addEventListener('input', (e) => {
+                const value = e.target.value;
+                beforeImage.style.width = `${value}%`;
+                handle.style.left = `${value}%`;
+            });
+        }
+    }
+
+    // 6. Global Fade-up Elements
+    function initFadeUpElements() {
+        gsap.utils.toArray('.fade-up').forEach(element => {
+            gsap.to(element, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 85%"
+                }
+            });
+        });
+    }
+
+    // Initialize all components that don't need to wait for preloader
+    // Parallax is initialized after preloader finishes in transitionToHero()
+    initAboutSection();
+    initStatsAnimations();
+    initProcessSlider();
+    initFadeUpElements();
+
 });
