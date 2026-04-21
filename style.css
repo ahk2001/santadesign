@@ -1,0 +1,242 @@
+:root {
+    --bg-color: #0b0b0b;
+    --text-color: #ffffff;
+    --accent: #E50914; /* Example accent */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    overflow-y: hidden; /* Hidden until preloader finishes */
+}
+
+/* =========================================
+   PRELOADER - GLITCH EFFECT
+   ========================================= */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease-in-out, visibility 1s;
+}
+
+.glitch-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.glitch-logo {
+    width: 250px;
+    height: auto;
+    animation: logo-build 0.8s infinite;
+}
+
+@keyframes logo-build {
+    0% { clip-path: inset(100% 0 0 0); opacity: 0; }
+    10% { clip-path: inset(80% 0 0 0); opacity: 1; transform: translateX(-5px); }
+    20% { clip-path: inset(80% 0 0 0); opacity: 0.2; transform: translateX(5px); }
+    30% { clip-path: inset(60% 0 0 0); opacity: 1; transform: translateX(-2px); }
+    40% { clip-path: inset(40% 0 0 0); opacity: 0.5; transform: skewX(10deg); }
+    50% { clip-path: inset(20% 0 0 0); opacity: 1; transform: skewX(0); }
+    60% { clip-path: inset(20% 0 0 0); opacity: 0; }
+    70% { clip-path: inset(0 0 0 0); opacity: 1; transform: scale(1.05); }
+    80% { clip-path: inset(0 0 0 0); opacity: 0.8; transform: scale(1); }
+    90% { clip-path: inset(50% 0 40% 0); opacity: 1; transform: translateX(3px); }
+    100% { clip-path: inset(0 0 0 0); opacity: 1; transform: translateX(0); }
+}
+
+/* =========================================
+   PARALLAX HERO
+   ========================================= */
+.hero-parallax {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.parallax-layers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.layer {
+    position: absolute;
+    top: -25%;
+    left: -10%;
+    width: 120%; /* wider for mouse movement margin */
+    height: 150%; /* much taller for vertical scroll margin */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform;
+}
+
+/* Mobile vs Desktop switching */
+.desktop-layers { display: block; }
+.mobile-layers { display: none; }
+
+@media (max-width: 768px) {
+    .desktop-layers { display: none; }
+    .mobile-layers { display: block; }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.5s ease 0.5s, transform 1.5s ease 0.5s;
+}
+
+.hero-logo {
+    width: 140px;
+    height: auto;
+    margin-bottom: 25px;
+    /* black shadow behind logo */
+    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 30px rgba(0,0,0,0.8));
+}
+
+.hero-content h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 5.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    line-height: 1.05;
+}
+
+.text-white {
+    color: #ffffff;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+}
+
+.text-orange {
+    color: #fd6d14;
+    text-shadow: 0 0 40px rgba(253, 109, 20, 0.6), 0 4px 20px rgba(0,0,0,0.8);
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    font-weight: 400;
+    color: #d1d1d1;
+    margin-top: 15px;
+    margin-bottom: 40px;
+}
+
+.btn-primary {
+    display: inline-block;
+    background-color: #fd6d14;
+    color: #000000;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 16px 45px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #ff8233;
+    transform: translateY(-3px);
+}
+
+.btn-primary .arrow {
+    margin-left: 10px;
+    font-weight: 900;
+}
+
+@media (max-width: 768px) {
+    .hero-logo {
+        width: 100px;
+        margin-bottom: 15px;
+    }
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    .btn-primary {
+        padding: 14px 35px;
+        font-size: 1rem;
+    }
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: -15vh; /* Push down relative to content */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.scroll-indicator span {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    opacity: 0.7;
+}
+
+.scroll-indicator .line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, #fff, transparent);
+    animation: scrollLine 2s infinite;
+}
+
+@keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    50.1% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Dummy Scroll Section for Testing */
+.dummy-scroll-section {
+    height: 150vh;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.dummy-scroll-section h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 3rem;
+    opacity: 0.5;
+}

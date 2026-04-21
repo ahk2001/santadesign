@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santa Design | Portfólio</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- GSAP via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+    <!-- Glitch Preloader -->
+    <div id="preloader">
+        <div class="glitch-wrapper">
+            <img src="assets/logo.png" alt="Santa Design Preloader" class="glitch-logo">
+        </div>
+    </div>
+
+    <!-- Parallax Hero Section -->
+    <section class="hero-parallax">
+        
+        <!-- Desktop Layers -->
+        <div class="parallax-layers desktop-layers">
+            <div class="layer layer-1" style="background-image: url('assets/home%20desktop/img1.png');"></div>
+            <div class="layer layer-2" style="background-image: url('assets/home%20desktop/img2.png');"></div>
+            <div class="layer layer-3" style="background-image: url('assets/home%20desktop/img3.png?v=2');"></div>
+            <div class="layer layer-4" style="background-image: url('assets/home%20desktop/img4.png?v=2');"></div>
+            <div class="layer layer-5" style="background-image: url('assets/home%20desktop/img5.png');"></div>
+        </div>
+
+        <!-- Mobile Layers -->
+        <div class="parallax-layers mobile-layers">
+            <div class="layer layer-1" style="background-image: url('assets/home%20mobile/img1.png');"></div>
+            <div class="layer layer-2" style="background-image: url('assets/home%20mobile/img2.png');"></div>
+            <div class="layer layer-3" style="background-image: url('assets/home%20mobile/img3.png');"></div>
+            <div class="layer layer-4" style="background-image: url('assets/home%20mobile/img4.png');"></div>
+            <div class="layer layer-5" style="background-image: url('assets/home%20mobile/img5.png');"></div>
+        </div>
+
+        <div class="hero-content">
+            <img src="assets/logo.png" alt="Santa Design" class="hero-logo">
+            <h1><span class="text-white">DESIGNING THE</span><br><span class="text-orange">ELITE</span></h1>
+            <p>Gráficos esportivos que elevam o jogo ao nível global</p>
+            <a href="#" class="btn-primary">VER PORTFÓLIO <span class="arrow">&rarr;</span></a>
+            
+            <div class="scroll-indicator">
+                <span>SCROLL</span>
+                <div class="line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content below hero to allow scrolling -->
+    <section class="dummy-scroll-section">
+        <div class="container">
+            <h2>MAIS PROJETOS EM BREVE</h2>
+        </div>
+    </section>
+
+    <script src="main.js"></script>
+</body>
+</html>
