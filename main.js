@@ -206,6 +206,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const revealTexts = document.querySelectorAll('.reveal-text');
         
         revealTexts.forEach((text) => {
+            // Kill existing ScrollTriggers on this element to avoid duplicates after language change
+            ScrollTrigger.getAll().forEach(st => {
+                if (st.trigger === text) st.kill();
+            });
+
             // Split text into words, wrap in spans
             const content = text.innerText;
             const words = content.split(' ');
@@ -290,9 +295,150 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Initialize all components that don't need to wait for preloader
-    // Parallax is initialized after preloader finishes in transitionToHero()
-    initAboutSection();
+    // 7. Language Switcher Logic
+    const translations = {
+        pt: {
+            hero_title_1: "DESIGNING THE",
+            hero_title_2: "ELITE",
+            hero_subtitle: "Gráficos esportivos que elevam o jogo ao nível global",
+            hero_btn: "VER PORTFÓLIO",
+            scroll: "SCROLL",
+            about_title_1: "Onde a Performance",
+            about_title_2: "encontra o Design.",
+            about_p1: "Na Santa Design, acreditamos que a imagem de um atleta é tão decisiva quanto o seu desempenho em campo. Com mais de 4 anos de especialização no mercado de esportes de elite, transformamos carreiras em marcas visuais icônicas.",
+            about_p2: "De flyers de dia de jogo a campanhas globais, nossa assinatura está presente em 7 países, conectando jogadores de alto nível aos seus fãs através de uma estética impecável e agressiva. Com mais de 200 artes exclusivas em nosso portfólio, não apenas entregamos design; entregamos autoridade visual para aqueles que nasceram para vencer.",
+            stats_years: "ANOS NO MERCADO",
+            stats_years_desc: "Especialização em design esportivo de elite",
+            stats_countries: "PAÍSES ALCANZADOS",
+            stats_countries_desc: "Presença global no futebol profissional",
+            stats_art: "ARTES EXCLUSIVAS",
+            stats_art_desc: "Para atletas de alto desempenho",
+            process_title: "NOSSO PROCESSO",
+            final_art: "ARTE FINAL",
+            initial_photo: "FOTO INICIAL",
+            cta_title: 'PRONTO PARA ELEVAR <span class="text-orange">SUA IMAGEM?</span>',
+            cta_btn: 'PEÇA UM ORÇAMENTO <span class="arrow">&rarr;</span>',
+            footer_text: "Transformando atletas em marcas visuais icônicas desde 2020",
+            footer_copyright: "Todos os direitos reservados."
+        },
+        en: {
+            hero_title_1: "DESIGNING THE",
+            hero_title_2: "ELITE",
+            hero_subtitle: "Sports graphics that elevate the game to a global level",
+            hero_btn: "VIEW PORTFOLIO",
+            scroll: "SCROLL",
+            about_title_1: "Where Performance",
+            about_title_2: "meets Design.",
+            about_p1: "At Santa Design, we believe that an athlete's image is as decisive as their performance on the field. With over 4 years of specialization in the elite sports market, we transform careers into iconic visual brands.",
+            about_p2: "From matchday flyers to global campaigns, our signature is present in 7 countries, connecting high-level players to their fans through impeccable and aggressive aesthetics. With over 200 exclusive artworks in our portfolio, we don't just deliver design; we deliver visual authority for those born to win.",
+            stats_years: "YEARS IN THE MARKET",
+            stats_years_desc: "Specialization in elite sports design",
+            stats_countries: "COUNTRIES REACHED",
+            stats_countries_desc: "Global presence in professional football",
+            stats_art: "EXCLUSIVE ARTWORKS",
+            stats_art_desc: "For high-performance athletes",
+            process_title: "OUR PROCESS",
+            final_art: "FINAL ART",
+            initial_photo: "INITIAL PHOTO",
+            cta_title: 'READY TO ELEVATE <span class="text-orange">YOUR IMAGE?</span>',
+            cta_btn: 'REQUEST A QUOTE <span class="arrow">&rarr;</span>',
+            footer_text: "Transforming athletes into iconic visual brands since 2020",
+            footer_copyright: "All rights reserved."
+        },
+        es: {
+            hero_title_1: "DISEÑANDO LA",
+            hero_title_2: "ÉLITE",
+            hero_subtitle: "Gráficos deportivos que elevan el juego a nivel mundial",
+            hero_btn: "VER PORTAFOLIO",
+            scroll: "SCROLL",
+            about_title_1: "Donde el Rendimiento",
+            about_title_2: "encuentra el Diseño.",
+            about_p1: "En Santa Design, creemos que la imagen de un atleta es tan decisiva como su desempeño en el campo. Con más de 4 años de especialización en el mercado deportivo de élite, transformamos carreras en marcas visuales icónicas.",
+            about_p2: "Desde folletos para días de partido até campañas globales, nuestra firma está presente en 7 países, conectando a jugadores de alto nivel con sus fanáticos a través de una estética impecable y agresiva. Con más de 200 obras de arte exclusivas en nuestro portafolio, no solo entregamos diseño; entregamos autoridad visual para aquellos que nacieron para ganar.",
+            stats_years: "AÑOS EN EL MERCADO",
+            stats_years_desc: "Especialización en diseño deportivo de élite",
+            stats_countries: "PAÍSES ALCANZADOS",
+            stats_countries_desc: "Presencia global en el fútbol profesional",
+            stats_art: "OBRAS DE ARTE EXCLUSIVAS",
+            stats_art_desc: "Para atletas de alto rendimiento",
+            process_title: "NUESTRO PROCESO",
+            final_art: "ARTE FINAL",
+            initial_photo: "FOTO INICIAL",
+            cta_title: '¿LISTO PARA ELEVAR <span class="text-orange">TU IMAGEN?</span>',
+            cta_btn: 'SOLICITAR PRESUPUESTO <span class="arrow">&rarr;</span>',
+            footer_text: "Transformando atletas em marcas visuais icônicas desde 2020",
+            footer_copyright: "Todos los derechos reservados."
+        }
+    };
+
+    let currentLang = localStorage.getItem('santa_lang') || 'pt';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('santa_lang', lang);
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                el.innerHTML = translations[lang][key];
+            }
+        });
+
+        // Update active class in dropdown and trigger text
+        const options = document.querySelectorAll('.lang-option');
+        options.forEach(btn => {
+            const btnLang = btn.getAttribute('data-lang');
+            const isActive = btnLang === lang;
+            btn.classList.toggle('active', isActive);
+            if (isActive) {
+                const currentBtn = document.getElementById('langCurrent');
+                if (currentBtn) {
+                    currentBtn.innerText = lang.toUpperCase();
+                }
+            }
+        });
+
+        // Close dropdown
+        const switcher = document.getElementById('langSwitcher');
+        if (switcher) switcher.classList.remove('open');
+
+        // Re-initialize animations that depend on text content
+        initAboutSection(); 
+    }
+
+    function initLanguageSwitcher() {
+        const switcher = document.getElementById('langSwitcher');
+        const trigger = document.getElementById('langCurrent');
+        const options = document.querySelectorAll('.lang-option');
+
+        if (!trigger || !switcher) return;
+
+        // Toggle dropdown on trigger click
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            switcher.classList.toggle('open');
+        });
+
+        // Select language from options
+        options.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setLanguage(btn.getAttribute('data-lang'));
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (switcher.classList.contains('open') && !switcher.contains(e.target)) {
+                switcher.classList.remove('open');
+            }
+        });
+        
+        // Initial set
+        setLanguage(currentLang);
+    }
+
+    // Initialize all components
+    initLanguageSwitcher();
     initStatsAnimations();
     initProcessSlider();
     initFadeUpElements();

@@ -15,6 +15,17 @@
 </head>
 <body>
 
+    <!-- Language Switcher Dropdown -->
+    <nav class="language-switcher" id="langSwitcher">
+        <button class="lang-current" id="langCurrent">PT</button>
+        <div class="lang-dropdown">
+            <button class="lang-option" data-lang="pt">PT</button>
+            <button class="lang-option" data-lang="en">EN</button>
+            <button class="lang-option" data-lang="es">ES</button>
+        </div>
+    </nav>
+
+
     <!-- Tactile Remotion Preloader -->
     <div id="preloader" class="tactile-preloader">
         <div class="paper-texture"></div>
@@ -69,12 +80,15 @@
 
         <div class="hero-content">
             <img src="assets/logo.png" alt="Santa Design" class="hero-logo">
-            <h1><span class="text-white">DESIGNING THE</span><br><span class="text-orange">ELITE</span></h1>
-            <p>Gráficos esportivos que elevam o jogo ao nível global</p>
-            <a href="#" class="btn-primary">VER PORTFÓLIO <span class="arrow">&rarr;</span></a>
+            <h1>
+                <span class="text-white" data-i18n="hero_title_1">DESIGNING THE</span><br>
+                <span class="text-orange" data-i18n="hero_title_2">ELITE</span>
+            </h1>
+            <p data-i18n="hero_subtitle">Gráficos esportivos que elevam o jogo ao nível global</p>
+            <a href="#" class="btn-primary" data-i18n="hero_btn">VER PORTFÓLIO <span class="arrow">&rarr;</span></a>
             
             <div class="scroll-indicator">
-                <span>SCROLL</span>
+                <span data-i18n="scroll">SCROLL</span>
                 <div class="line"></div>
             </div>
         </div>
@@ -84,16 +98,16 @@
     <section class="about-section">
         <div class="about-container">
             <h2>
-                <span class="text-white">Where Performance</span><br>
-                <span class="text-orange">meets Design.</span>
+                <span class="text-white" data-i18n="about_title_1">Where Performance</span><br>
+                <span class="text-orange" data-i18n="about_title_2">meets Design.</span>
             </h2>
             
-            <p class="reveal-text">
+            <p class="reveal-text" data-i18n="about_p1">
                 At Santa Design, we believe that an athlete's image is as decisive as their performance on the field. 
                 With over 4 years of specialization in the elite sports market, we transform careers into iconic visual brands.
             </p>
             
-            <p class="reveal-text">
+            <p class="reveal-text" data-i18n="about_p2">
                 From matchday flyers to global campaigns, our signature is present in 7 countries, connecting 
                 high-level players to their fans through impeccable and aggressive aesthetics. With over 200 
                 exclusive artworks in our portfolio, we don't just deliver design; we deliver visual authority 
@@ -107,20 +121,20 @@
         <div class="stats-container">
             <div class="stat-item fade-up">
                 <div class="stat-number">4<span class="text-orange">+</span></div>
-                <h3>YEARS IN THE MARKET</h3>
-                <p>Specialization in elite sports design</p>
+                <h3 data-i18n="stats_years">YEARS IN THE MARKET</h3>
+                <p data-i18n="stats_years_desc">Specialization in elite sports design</p>
                 <div class="stat-line"></div>
             </div>
             <div class="stat-item fade-up" style="transition-delay: 0.2s;">
                 <div class="stat-number">7</div>
-                <h3>COUNTRIES REACHED</h3>
-                <p>Global presence in professional football</p>
+                <h3 data-i18n="stats_countries">COUNTRIES REACHED</h3>
+                <p data-i18n="stats_countries_desc">Global presence in professional football</p>
                 <div class="stat-line"></div>
             </div>
             <div class="stat-item fade-up" style="transition-delay: 0.4s;">
                 <div class="stat-number">200<span class="text-orange">+</span></div>
-                <h3>EXCLUSIVE ARTWORKS</h3>
-                <p>For high-performance athletes</p>
+                <h3 data-i18n="stats_art">EXCLUSIVE ARTWORKS</h3>
+                <p data-i18n="stats_art_desc">For high-performance athletes</p>
                 <div class="stat-line"></div>
             </div>
         </div>
@@ -170,16 +184,16 @@
 
     <!-- 3. Our Process (Before/After Slider) -->
     <section class="process-section">
-        <h2 class="text-center fade-up"><span class="text-white">OUR PROCESS</span></h2>
+        <h2 class="text-center fade-up"><span class="text-white" data-i18n="process_title">OUR PROCESS</span></h2>
         <div class="before-after-slider fade-up">
             <!-- Camada Base: Final Art (baixo) -->
             <div class="image-after">
-                <span class="label label-right">FINAL ART</span>
+                <span class="label label-right" data-i18n="final_art">FINAL ART</span>
                 <img src="assets/desktop/img6.png" alt="Final Art">
             </div>
             <!-- Camada Cima: Initial Photo (recortada) -->
             <div class="image-before">
-                <span class="label label-left">INITIAL SOUND</span>
+                <span class="label label-left" data-i18n="initial_photo">INITIAL PHOTO</span>
                 <!-- Since we only have final arts, using a different art to simulate 'before' visually for logic testing -->
                 <img src="assets/desktop/img0.png" alt="Initial Photo">
             </div>
@@ -203,16 +217,16 @@
     <!-- 5. CTA Section -->
     <section class="cta-section">
         <div class="cta-content fade-up">
-            <h2>READY TO ELEVATE <span class="text-orange">YOUR IMAGE?</span></h2>
-            <a href="https://instagram.com/santa-design" target="_blank" class="btn-primary cta-btn">REQUEST A QUOTE <span class="arrow">&rarr;</span></a>
+            <h2 data-i18n="cta_title">READY TO ELEVATE <span class="text-orange">YOUR IMAGE?</span></h2>
+            <a href="https://instagram.com/santa-design" target="_blank" class="btn-primary cta-btn" data-i18n="cta_btn">REQUEST A QUOTE <span class="arrow">&rarr;</span></a>
         </div>
     </section>
 
     <!-- 6. Footer -->
     <footer class="site-footer">
         <img src="assets/logo.png" alt="Santa Design Logo" class="footer-logo">
-        <p>Transforming athletes into iconic visual brands since 2020</p>
-        <p class="copyright">© 2024 Santa Design. All rights reserved.</p>
+        <p data-i18n="footer_text">Transforming athletes into iconic visual brands since 2020</p>
+        <p class="copyright">© 2024 Santa Design. <span data-i18n="footer_copyright">All rights reserved.</span></p>
     </footer>
 
     <script src="main.js"></script>
