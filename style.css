@@ -29,6 +29,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(30px);
 }
 
 .lang-current {
@@ -223,12 +226,10 @@ body {
 .stamp-overlay {
     position: absolute;
     inset: -20px;
-    background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.3"/%3E%3C/svg%3E');
-    mix-blend-mode: color-dodge;
+    background-image: none; /* Removido para eliminar o quadrado indesejado */
     pointer-events: none;
     z-index: 10;
-    opacity: 0.1;
-    animation: texture-shimmer 4s steps(4) infinite;
+    opacity: 0; /* Ocultado completamente para garantir */
 }
 
 @keyframes texture-shimmer {
@@ -263,14 +264,32 @@ body {
 
 .layer {
     position: absolute;
-    top: -25%;
+    top: -25%; /* Aumentado para acomodar os 200px de deslocamento sem mostrar a borda */
     left: -10%;
-    width: 120%; /* wider for mouse movement margin */
-    height: 150%; /* much taller for vertical scroll margin */
+    width: 120%; 
+    height: 150%; /* Altura ajustada para manter a proporção */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     will-change: transform;
+}
+
+/* Mantém a 'folga' maior apenas no mobile para evitar o bug da barra de endereços */
+@media (max-width: 768px) {
+    .layer {
+        top: -45%;
+        height: 190%;
+    }
+    /* Jogador pequeno: mais para esquerda e para cima */
+    .mobile-layers .layer-5 {
+        background-position: 15% 35%;
+    }
+    /* Olhos do rosto grande: desloca mais para baixo */
+    .mobile-layers .layer-2,
+    .mobile-layers .layer-3,
+    .mobile-layers .layer-4 {
+        background-position: center 55%;
+    }
 }
 
 /* Mobile vs Desktop switching */

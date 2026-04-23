@@ -3,7 +3,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const preloader = document.getElementById('preloader');
     const body = document.body;
     const heroContent = document.querySelector('.hero-content');
-    
+
+    // === SAFETY TIMEOUT: Unlock site if preloader gets stuck ===
+    const safetyTimeout = setTimeout(() => {
+        console.warn('[Santa] Safety timeout - forcing preloader exit');
+        if (preloader) { preloader.style.opacity = '0'; preloader.style.visibility = 'hidden'; }
+        body.style.overflowY = 'auto';
+        if (heroContent) { heroContent.style.opacity = '1'; heroContent.style.transform = 'translateY(0)'; }
+        // Show all fade-up elements
+        document.querySelectorAll('.fade-up').forEach(el => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
+    }, 6000);
+
+    // Guard: if GSAP didn't load from CDN, skip all animations
+    if (typeof gsap === 'undefined') {
+        console.error('[Santa] GSAP not loaded - skipping animations');
+        clearTimeout(safetyTimeout);
+        if (preloader) { preloader.style.display = 'none'; }
+        body.style.overflowY = 'auto';
+        if (heroContent) { heroContent.style.opacity = '1'; heroContent.style.transform = 'translateY(0)'; }
+        document.querySelectorAll('.fade-up').forEach(el => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
+        return; // exit DOMContentLoaded entirely
+    }
+
+    // Register ScrollTrigger early
+    if (typeof ScrollTrigger !== 'undefined') { gsap.registerPlugin(ScrollTrigger); }
+
     // Create new GSAP Timeline for the Remotion style preloader
     const tl = gsap.timeline({
         onComplete: () => {
@@ -32,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Transition out preloader after loop starts
             setTimeout(() => {
                 transitionToHero();
-            }, 1500);
+            }, 200);
         }
     });
 
@@ -67,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 1.2,
         ease: "power3.out"
     }, "-=0.4");
-    
+
     tl.to('.text-bottom-wrapper', {
         y: 0,
         opacity: 1,
@@ -85,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, "-=0.2");
 
     function transitionToHero() {
+        clearTimeout(safetyTimeout); // Cancel safety timeout since preloader is exiting normally
         gsap.to(preloader, {
             opacity: 0,
             duration: 1.2,
@@ -92,14 +117,24 @@ document.addEventListener("DOMContentLoaded", () => {
             onComplete: () => {
                 preloader.style.visibility = 'hidden';
                 body.style.overflowY = 'auto'; // allow scroll
-                
-                // Initialize hero animations
-                heroContent.style.opacity = '1';
-                heroContent.style.transform = 'translateY(0)';
-                
-                if (typeof initParallax === "function") {
-                    initParallax();
-                }
+
+                // Initialize hero animations with delay (coordinated with layer entrance)
+                // We Wait until the last image is close to finishing (~3-3.5s)
+                gsap.to(['.hero-content', '.language-switcher'], {
+                    opacity: 1,
+                    y: 0,
+                    x: 0,
+                    duration: 1.5,
+                    delay: 0.8, 
+                    ease: "power2.out",
+                    pointerEvents: "auto",
+                    onStart: () => {
+                        // Ensure they are visible if they had display: none or similar
+                        if (heroContent) heroContent.style.visibility = 'visible';
+                    }
+                });
+
+                try { initParallax(); } catch (e) { console.error('[Santa] Parallax error:', e); }
             }
         });
     }
@@ -107,12 +142,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 2. Parallax Logic
     function initParallax() {
-        gsap.registerPlugin(ScrollTrigger);
+        if (typeof ScrollTrigger === 'undefined') return;
 
         const isDesktop = window.innerWidth > 768;
         const selector = isDesktop ? '.desktop-layers .layer' : '.mobile-layers .layer';
         const layers = document.querySelectorAll(selector);
-        
+
         if (!layers.length) return;
 
         // Settings for layers: speed multipliers
@@ -123,14 +158,40 @@ document.addEventListener("DOMContentLoaded", () => {
             0.15,  // Layer 4
             0.22   // Layer 5 (Front)
         ];
-        
+
+        // Initial entrance state for layers (except layer-1)
+        layers.forEach((layer, index) => {
+            if (index > 0) {
+                gsap.set(layer, {
+                    y: 200,
+                    opacity: 0 // Inicia invisível para o efeito de fade-in
+                });
+            }
+        });
+
+        // Entrance Animation: Sliding up + Fade-in
+        gsap.to(Array.from(layers).slice(1), {
+            y: 0,
+            opacity: 1,
+            duration: (i) => 2.5 + (i * 0.5),
+            stagger: 0.2,
+            delay: 0.1,
+            ease: "expo.out",
+            onComplete: () => {
+                // Ao terminar a entrada, limpamos o transform para não conflitar com o parallax
+                // e forçamos o ScrollTrigger a recalcular tudo (essencial para mobile)
+                gsap.set(Array.from(layers).slice(1), { clearProps: "y" });
+                ScrollTrigger.refresh();
+            }
+        });
+
         // Increased parallax effect for mobile
         const mobileSpeeds = [
-            0.08, 
-            0.18, 
-            0.35, 
-            0.55, 
-            0.8   
+            0.08,
+            0.18,
+            0.35,
+            0.55,
+            0.8
         ];
 
         const speeds = isDesktop ? baseSpeeds : mobileSpeeds;
@@ -144,7 +205,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     trigger: ".hero-parallax",
                     start: "top top",
                     end: "bottom top",
-                    scrub: true
+                    scrub: true,
+                    invalidateOnRefresh: true // Recalcula ao redimensionar (comum em mobile)
                 }
             });
         });
@@ -152,14 +214,14 @@ document.addEventListener("DOMContentLoaded", () => {
         // Mouse Parallax (Only Desktop)
         if (isDesktop) {
             const heroSection = document.querySelector('.hero-parallax');
-            
+
             heroSection.addEventListener("mousemove", (e) => {
                 const x = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
                 const y = (e.clientY / window.innerHeight - 0.5) * 2; // -1 to 1
 
                 layers.forEach((layer, index) => {
                     // Reverse movement: foreground moves more than background
-                    const movementX = x * (index + 1) * 8; 
+                    const movementX = x * (index + 1) * 8;
                     const movementY = y * (index + 1) * 8;
 
                     gsap.to(layer, {
@@ -188,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 3. About Section Scroll Logic (Friction & Word Reveal)
     function initAboutSection() {
-        gsap.registerPlugin(ScrollTrigger);
+        if (typeof ScrollTrigger === 'undefined') return;
 
         // Friction effect: makes the text wrapper move up slowly (slower than normal scroll)
         gsap.to(".about-container", {
@@ -204,7 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Word reveal setup
         const revealTexts = document.querySelectorAll('.reveal-text');
-        
+
         revealTexts.forEach((text) => {
             // Kill existing ScrollTriggers on this element to avoid duplicates after language change
             ScrollTrigger.getAll().forEach(st => {
@@ -214,10 +276,10 @@ document.addEventListener("DOMContentLoaded", () => {
             // Split text into words, wrap in spans
             const content = text.innerText;
             const words = content.split(' ');
-            
+
             // clear contents
             text.innerHTML = '';
-            
+
             const wordsArray = [];
             words.forEach(word => {
                 const span = document.createElement('span');
@@ -232,8 +294,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             // Animate words color from grey to white over scroll
-            gsap.fromTo(wordsArray, 
-                { color: "#333333" }, 
+            gsap.fromTo(wordsArray,
+                { color: "#333333" },
                 {
                     color: "#ffffff",
                     ease: "none",
@@ -403,7 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (switcher) switcher.classList.remove('open');
 
         // Re-initialize animations that depend on text content
-        initAboutSection(); 
+        initAboutSection();
     }
 
     function initLanguageSwitcher() {
@@ -432,15 +494,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 switcher.classList.remove('open');
             }
         });
-        
+
         // Initial set
         setLanguage(currentLang);
     }
 
-    // Initialize all components
-    initLanguageSwitcher();
-    initStatsAnimations();
-    initProcessSlider();
-    initFadeUpElements();
+    // Initialize all components safely
+    try { initLanguageSwitcher(); } catch (e) { console.error('[Santa] LangSwitcher error:', e); }
+    try { initStatsAnimations(); } catch (e) { console.error('[Santa] Stats error:', e); }
+    try { initProcessSlider(); } catch (e) { console.error('[Santa] Slider error:', e); }
+    try { initFadeUpElements(); } catch (e) { console.error('[Santa] FadeUp error:', e); }
 
 });
