@@ -177,14 +177,16 @@
     <section class="process-section">
         <h2 class="text-center fade-up"><span class="text-white" data-i18n="process_title">OUR PROCESS</span></h2>
         <div class="before-after-slider fade-up">
+            <!-- Labels movidos para o container pai para evitar clipping -->
+            <span class="label label-right" data-i18n="final_art">FINAL ART</span>
+            <span class="label label-left" data-i18n="initial_photo">INITIAL PHOTO</span>
+
             <!-- Camada Base: Final Art (baixo) -->
             <div class="image-after">
-                <span class="label label-right" data-i18n="final_art">FINAL ART</span>
                 <img src="assets/desktop/img6.png" alt="Final Art">
             </div>
             <!-- Camada Cima: Initial Photo (recortada) -->
             <div class="image-before">
-                <span class="label label-left" data-i18n="initial_photo">INITIAL PHOTO</span>
                 <!-- Since we only have final arts, using a different art to simulate 'before' visually for logic testing -->
                 <img src="assets/desktop/img0.png" alt="Initial Photo">
             </div>
