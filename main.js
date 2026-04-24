@@ -640,11 +640,80 @@ document.addEventListener("DOMContentLoaded", () => {
         setLanguage(currentLang);
     }
 
+    // 8. Lightbox Gallery Logic (GSAP Optimized)
+    function initLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const closeBtn = document.querySelector('.lightbox-close');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        if (!lightbox || !lightboxImg || !closeBtn) return;
+
+        // Timeline base para abertura e fechamento
+        const openTl = gsap.timeline({ paused: true });
+        
+        // Reset base properties na timeline
+        openTl.to(lightbox, {
+            autoAlpha: 1, // handles visibility and opacity
+            duration: 0.5,
+            ease: "power2.inOut"
+        });
+        
+        openTl.fromTo(lightboxImg, 
+            { scale: 0.8, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.2)" },
+            "-=0.3"
+        );
+        
+        openTl.fromTo(lightboxCaption,
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.4 },
+            "-=0.2"
+        );
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                const description = item.getAttribute('data-description');
+                
+                if (img) {
+                    lightboxImg.src = img.src;
+                    lightboxCaption.innerText = description || '';
+                    
+                    // Play animation
+                    openTl.play();
+                    document.body.style.overflow = 'hidden'; 
+                }
+            });
+        });
+
+        const closeLightbox = () => {
+            openTl.reverse();
+            document.body.style.overflow = ''; 
+        };
+
+        closeBtn.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.style.visibility === 'visible') {
+                closeLightbox();
+            }
+        });
+    }
+
     // Initialize all components safely
     try { initLanguageSwitcher(); } catch (e) { console.error('[Santa] LangSwitcher error:', e); }
     try { initStatsAnimations(); } catch (e) { console.error('[Santa] Stats error:', e); }
     try { initProcessSlider(); } catch (e) { console.error('[Santa] Slider error:', e); }
     try { initFadeUpElements(); } catch (e) { console.error('[Santa] FadeUp error:', e); }
     try { initWorksReveal(); } catch (e) { console.error('[Santa] WorksReveal error:', e); }
+    try { initLightbox(); } catch (e) { console.error('[Santa] Lightbox error:', e); }
 
 });

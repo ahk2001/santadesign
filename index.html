@@ -197,39 +197,71 @@
         </div>
     </section>
 
-    <section class="more-works-section">
-        <div class="works-grid">
-            <!-- Set 1 -->
-            <div class="work-item work-large reveal-item"><img src="assets/desktop/img7.png" alt="Work 7"><div class="work-overlay">MOMENT</div></div>
-            <div class="work-item work-small reveal-item"><img src="assets/desktop/img8.png" alt="Work 8"><div class="work-overlay">CHAMPION</div></div>
-            <div class="work-item work-small reveal-item"><img src="assets/desktop/img9.png" alt="Work 9"><div class="work-overlay">AESTHETIC</div></div>
-            
-            <!-- Set 2 -->
-            <div class="work-item work-large reveal-item"><img src="assets/desktop/img1.png" alt="Work 1"><div class="work-overlay">VISION</div></div>
-            <div class="work-item work-small reveal-item"><img src="assets/desktop/img2.png" alt="Work 2"><div class="work-overlay">ELITE</div></div>
-            <div class="work-item work-small reveal-item"><img src="assets/desktop/img3.png" alt="Work 3"><div class="work-overlay">POWER</div></div>
 
-            <!-- Set 3 -->
-            <div class="work-item work-large reveal-item"><img src="assets/desktop/img4.png" alt="Work 4"><div class="work-overlay">GLORY</div></div>
-            <div class="work-item work-small reveal-item"><img src="assets/desktop/img5.png" alt="Work 5"><div class="work-overlay">VICTORY</div></div>
-            <div class="work-item work-small reveal-item"><img src="assets/desktop/img6.png" alt="Work 6"><div class="work-overlay">LEGACY</div></div>
+    <!-- 4. Pinned Reveal Section (Dobra 6) -->
+    <section class="dobra6-reveal-container">
+        <div class="dobra6-sticky">
+            <picture>
+                <source media="(max-width: 768px)" srcset="assets/mobile/dobra6.png">
+                <img src="assets/desktop/dobra6.png" alt="Reveal Image">
+            </picture>
         </div>
     </section>
 
-    <!-- 5. CTA Section -->
-    <section class="cta-section">
-        <div class="cta-content fade-up">
-            <h2 data-i18n="cta_title">READY TO ELEVATE <span class="text-orange">YOUR IMAGE?</span></h2>
-            <a href="https://instagram.com/santa-design" target="_blank" class="btn-primary cta-btn" data-i18n="cta_btn">REQUEST A QUOTE <span class="arrow">&rarr;</span></a>
+    <!-- 5. Gallery Section (Dobra 7) -->
+    <section class="dobra7-gallery">
+        <div class="gallery-container">
+            <h2 class="text-center fade-up"><span class="text-white">PROJECTS</span> <span class="text-orange">ARCHIVE</span></h2>
+            <div class="gallery-grid">
+                <!-- 12 Imagens Placeholder -->
+                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #1">
+                    <img src="assets/desktop/img1.png" alt="Project 1">
+                </div>
+                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #2">
+                    <img src="assets/desktop/img2.png" alt="Project 2">
+                </div>
+                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #3">
+                    <img src="assets/desktop/img3.png" alt="Project 3">
+                </div>
+                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #4">
+                    <img src="assets/desktop/img4.png" alt="Project 4">
+                </div>
+                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #5">
+                    <img src="assets/desktop/img5.png" alt="Project 5">
+                </div>
+                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #6">
+                    <img src="assets/desktop/img6.png" alt="Project 6">
+                </div>
+                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #7">
+                    <img src="assets/desktop/img7.png" alt="Project 7">
+                </div>
+                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #8">
+                    <img src="assets/desktop/img8.png" alt="Project 8">
+                </div>
+                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #9">
+                    <img src="assets/desktop/img9.png" alt="Project 9">
+                </div>
+                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #10">
+                    <img src="assets/desktop/img1.png" alt="Project 10">
+                </div>
+                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #11">
+                    <img src="assets/desktop/img2.png" alt="Project 11">
+                </div>
+                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #12">
+                    <img src="assets/desktop/img3.png" alt="Project 12">
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- 6. Footer -->
-    <footer class="site-footer">
-        <img src="assets/logo.png" alt="Santa Design Logo" class="footer-logo">
-        <p data-i18n="footer_text">Transforming athletes into iconic visual brands since 2020</p>
-        <p class="copyright">© 2024 Santa Design. <span data-i18n="footer_copyright">All rights reserved.</span></p>
-    </footer>
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Full View">
+            <p id="lightbox-caption" class="lightbox-caption"></p>
+        </div>
+    </div>
 
     <script src="main.js"></script>
 </body>
