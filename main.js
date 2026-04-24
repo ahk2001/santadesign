@@ -342,16 +342,107 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 4. Stats Animation Logic
     function initStatsAnimations() {
-        gsap.utils.toArray('.stat-line').forEach(line => {
-            gsap.to(line, {
-                width: '100%',
-                duration: 1.5,
-                ease: "power3.out",
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+        const statItems = gsap.utils.toArray('.stat-item');
+
+        statItems.forEach((item, index) => {
+            const countSpan = item.querySelector('.count-up');
+            const line = item.querySelector('.stat-line');
+            const targetValue = parseInt(countSpan.innerText);
+
+            // Estado inicial limpo
+            gsap.set(item, { 
+                opacity: 0, 
+                y: 80, 
+                perspective: 1000,
+                transformStyle: "preserve-3d" 
+            });
+            gsap.set(line, { width: 0 });
+            countSpan.innerText = "0";
+
+            // Timeline disparada pelo Scroll
+            const tl = gsap.timeline({
                 scrollTrigger: {
-                    trigger: line,
-                    start: "top 85%"
+                    trigger: item,
+                    start: "top 90%",
+                    onEnter: () => item.classList.add('is-counting'),
+                    once: true 
                 }
             });
+
+            // 1. Entrada Elite: Staggered Fade + Slide com elasticidade controlada
+            tl.to(item, {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "expo.out",
+                delay: index * 0.15
+            });
+
+            // 2. Contador Progressivo Premium
+            const countObj = { val: 0 };
+            tl.to(countObj, {
+                val: targetValue,
+                duration: 3,
+                ease: "expo.out",
+                onUpdate: () => {
+                    countSpan.innerText = Math.floor(countObj.val);
+                },
+                onComplete: () => {
+                    item.classList.remove('is-counting');
+                    // Garante o valor exato no final
+                    countSpan.innerText = targetValue;
+                }
+            }, "-=0.8");
+
+            // 3. Linha crescendo em harmonia absoluta
+            tl.to(line, {
+                width: '100%',
+                duration: 2,
+                ease: "expo.inOut"
+            }, "-=2.5");
+
+            // --- INTERAÇÃO MAGNÉTICA 3D (TILT) ---
+            if (window.innerWidth > 768) {
+                item.addEventListener('mousemove', (e) => {
+                    const rect = item.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    // Mouse variables para o CSS (radial-glow)
+                    item.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+                    item.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+
+                    // Tilt Calculation
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 10; // Sensibilidade
+                    const rotateY = (centerX - x) / 10;
+
+                    gsap.to(item, {
+                        rotateX: rotateX,
+                        rotateY: rotateY,
+                        x: (x - centerX) * 0.1,
+                        y: (y - centerY) * 0.1,
+                        duration: 0.5,
+                        ease: "power2.out",
+                        overwrite: "auto"
+                    });
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    gsap.to(item, {
+                        rotateX: 0,
+                        rotateY: 0,
+                        x: 0,
+                        y: 0,
+                        duration: 1,
+                        ease: "elastic.out(1, 0.3)",
+                        overwrite: "auto"
+                    });
+                });
+            }
         });
     }
 
