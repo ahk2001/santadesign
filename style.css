@@ -640,34 +640,11 @@ body {
 
 .portfolio-item {
     position: relative;
-    grid-column: span 4;
     border-radius: 8px;
     overflow: hidden;
-    aspect-ratio: 4/5;
+    aspect-ratio: 4/5 !important;
     background-color: #111;
     cursor: pointer;
-}
-
-.portfolio-item.img-large {
-    grid-column: span 8;
-    grid-row: span 2;
-    aspect-ratio: auto;
-}
-
-.portfolio-item.img-wide {
-    grid-column: span 8;
-    aspect-ratio: 16/9;
-}
-
-.portfolio-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.portfolio-item:hover img {
-    transform: scale(1.05);
 }
 
 .portfolio-overlay {
@@ -679,6 +656,7 @@ body {
     display: flex;
     align-items: flex-end;
     padding: 30px;
+    pointer-events: none;
 }
 
 .portfolio-item:hover .portfolio-overlay {
@@ -686,7 +664,7 @@ body {
 }
 
 .portfolio-overlay h3 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 1px;
     color: #fff;
@@ -698,31 +676,49 @@ body {
     transform: translateY(0);
 }
 
-.orange-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #fd6d14;
-    margin-right: 15px;
-    margin-bottom: 6px;
+/* Logic for Large (8cols) and Small (4cols) */
+.work-large {
+    grid-column: span 8 !important;
+    grid-row: span 2 !important;
+    aspect-ratio: auto !important; 
+    /* No desktop, a grande ocupa 2 linhas para manter o 4:5 relativo às pequenas */
 }
 
+.work-small {
+    grid-column: span 4 !important;
+    aspect-ratio: 4/5 !important;
+}
+
+.portfolio-item img,
+.work-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter 0.6s cubic-bezier(0.2, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.portfolio-item:hover img,
+.work-item:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.08);
+}
+
+/* Responsive Mobile */
 @media (max-width: 992px) {
-
     .portfolio-item,
-    .portfolio-item.img-large,
-    .portfolio-item.img-wide {
-        grid-column: span 6;
-        aspect-ratio: 1;
+    .work-item,
+    .work-large,
+    .work-small {
+        grid-column: span 12 !important;
+        grid-row: auto !important;
+        aspect-ratio: 4/5 !important;
     }
-}
-
-@media (max-width: 576px) {
-
-    .portfolio-item,
-    .portfolio-item.img-large,
-    .portfolio-item.img-wide {
-        grid-column: span 12;
+    
+    .portfolio-grid,
+    .works-grid {
+        gap: 15px;
     }
 }
 
@@ -873,21 +869,37 @@ body {
    4. MORE WORKS GRID
    ========================================= */
 .more-works-section {
-    padding: 5vh 0;
+    padding: 10vh 20px;
+    background-color: var(--bg-color);
 }
 
 .works-grid {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 .work-item {
     position: relative;
-    flex: 1 1 25%;
-    min-width: 250px;
-    aspect-ratio: 1;
     overflow: hidden;
+    border-radius: 12px;
+    background-color: #111;
+    cursor: pointer;
+    /* Aspect ratio 4:5 solicitado (Vertical) */
+    aspect-ratio: 4/5;
+}
+
+.work-item.work-large {
+    grid-column: span 8;
+    grid-row: span 2;
+    /* Com 4:5 nas pequenas, a grande automaticamente será 4:5 ao ocupar 2 linhas */
+    aspect-ratio: auto; 
+}
+
+.work-item.work-small {
+    grid-column: span 4;
 }
 
 .work-item img {
@@ -895,12 +907,13 @@ body {
     height: 100%;
     object-fit: cover;
     filter: grayscale(100%);
-    transition: filter 0.5s ease, transform 0.5s ease;
+    transition: filter 0.6s cubic-bezier(0.2, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
 .work-item:hover img {
     filter: grayscale(0%);
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
 .work-overlay {
@@ -909,17 +922,41 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.4);
+    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
     opacity: 0;
-    transition: opacity 0.4s ease;
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    backdrop-filter: blur(2px);
+    transition: opacity 0.5s ease;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #fff;
+    pointer-events: none;
 }
 
 .work-item:hover .work-overlay {
     opacity: 1;
+}
+
+/* Estado inicial para animação de entrada */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(60px);
+    will-change: transform, opacity;
+}
+
+/* Responsive Mobile */
+@media (max-width: 992px) {
+    .work-item.work-large,
+    .work-item.work-small {
+        grid-column: span 12;
+        grid-row: auto;
+        /* Garante proporção 4:5 no mobile */
+        aspect-ratio: 4/5;
+    }
+    
+    .works-grid {
+        gap: 15px;
+    }
 }
 
 /* =========================================

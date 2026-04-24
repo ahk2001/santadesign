@@ -477,6 +477,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // 6.5. Works Reveal Animation
+    function initWorksReveal() {
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+        const items = gsap.utils.toArray('.reveal-item');
+
+        items.forEach((item) => {
+            gsap.to(item, {
+                opacity: 1,
+                y: 0,
+                duration: 1.5,
+                ease: "expo.out",
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 92%",
+                    toggleActions: "play none none none"
+                }
+            });
+        });
+    }
+
     // 7. Language Switcher Logic
     const translations = {
         pt: {
@@ -624,5 +645,6 @@ document.addEventListener("DOMContentLoaded", () => {
     try { initStatsAnimations(); } catch (e) { console.error('[Santa] Stats error:', e); }
     try { initProcessSlider(); } catch (e) { console.error('[Santa] Slider error:', e); }
     try { initFadeUpElements(); } catch (e) { console.error('[Santa] FadeUp error:', e); }
+    try { initWorksReveal(); } catch (e) { console.error('[Santa] WorksReveal error:', e); }
 
 });

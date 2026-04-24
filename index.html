@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Santa Design | Portfólio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="style.css?v=1.1">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -142,41 +143,32 @@
     <!-- 2. Portfolio Gallery -->
     <section class="portfolio-section px-5">
         <div class="portfolio-grid">
-            <div class="portfolio-item img-large fade-up">
-                <!-- Using provided images -->
+            <!-- Bloco 1: Grande Esquerda, 2 Pequenas Direita (Imagens 1, 2, 3) -->
+            <div class="portfolio-item work-large reveal-item">
                 <img src="assets/desktop/img1.png" alt="Art 1">
-                <div class="portfolio-overlay">
-                    <span class="orange-dot"></span>
-                    <h3>PRO ATHLETE V1</h3>
-                </div>
+                <div class="portfolio-overlay"><h3>PRO ATHLETE V1</h3></div>
             </div>
-            <div class="portfolio-item fade-up">
+            <div class="portfolio-item work-small reveal-item">
                 <img src="assets/desktop/img2.png" alt="Art 2">
-                <div class="portfolio-overlay">
-                    <span class="orange-dot"></span>
-                    <h3>PRO ATHLETE V2</h3>
-                </div>
+                <div class="portfolio-overlay"><h3>PRO ATHLETE V2</h3></div>
             </div>
-            <div class="portfolio-item fade-up">
+            <div class="portfolio-item work-small reveal-item">
                 <img src="assets/desktop/img3.png" alt="Art 3">
-                <div class="portfolio-overlay">
-                    <span class="orange-dot"></span>
-                    <h3>PRO ATHLETE V3</h3>
-                </div>
+                <div class="portfolio-overlay"><h3>PRO ATHLETE V3</h3></div>
             </div>
-            <div class="portfolio-item img-wide fade-up">
-                <img src="assets/desktop/img4.png" alt="Art 4">
-                <div class="portfolio-overlay">
-                    <span class="orange-dot"></span>
-                    <h3>MATCHDAY SERIES</h3>
-                </div>
-            </div>
-            <div class="portfolio-item fade-up">
+
+            <!-- Bloco 2: 2 Pequenas Esquerda, Grande Direita (Imagens 5, 4, 6 - Espelhado) -->
+            <div class="portfolio-item work-small reveal-item">
                 <img src="assets/desktop/img5.png" alt="Art 5">
-                <div class="portfolio-overlay">
-                    <span class="orange-dot"></span>
-                    <h3>ELITE GRAPHICS</h3>
-                </div>
+                <div class="portfolio-overlay"><h3>ELITE GRAPHICS</h3></div>
+            </div>
+            <div class="portfolio-item work-large reveal-item">
+                <img src="assets/desktop/img4.png" alt="Art 4">
+                <div class="portfolio-overlay"><h3>MATCHDAY SERIES</h3></div>
+            </div>
+            <div class="portfolio-item work-small reveal-item">
+                <img src="assets/desktop/img6.png" alt="Art 6">
+                <div class="portfolio-overlay"><h3>VISIONARY</h3></div>
             </div>
         </div>
     </section>
@@ -203,13 +195,22 @@
         </div>
     </section>
 
-    <!-- 4. Some Works Grid -->
     <section class="more-works-section">
         <div class="works-grid">
-            <div class="work-item fade-up"><img src="assets/desktop/img7.png" alt="Work 7"><div class="work-overlay">MOMENT</div></div>
-            <div class="work-item fade-up" style="transition-delay: 0.1s;"><img src="assets/desktop/img8.png" alt="Work 8"><div class="work-overlay">CHAMPION</div></div>
-            <div class="work-item fade-up" style="transition-delay: 0.2s;"><img src="assets/desktop/img9.png" alt="Work 9"><div class="work-overlay">AESTHETIC</div></div>
-            <div class="work-item fade-up" style="transition-delay: 0.3s;"><img src="assets/desktop/img1.png" alt="Work 1"><div class="work-overlay">VISION</div></div>
+            <!-- Set 1 -->
+            <div class="work-item work-large reveal-item"><img src="assets/desktop/img7.png" alt="Work 7"><div class="work-overlay">MOMENT</div></div>
+            <div class="work-item work-small reveal-item"><img src="assets/desktop/img8.png" alt="Work 8"><div class="work-overlay">CHAMPION</div></div>
+            <div class="work-item work-small reveal-item"><img src="assets/desktop/img9.png" alt="Work 9"><div class="work-overlay">AESTHETIC</div></div>
+            
+            <!-- Set 2 -->
+            <div class="work-item work-large reveal-item"><img src="assets/desktop/img1.png" alt="Work 1"><div class="work-overlay">VISION</div></div>
+            <div class="work-item work-small reveal-item"><img src="assets/desktop/img2.png" alt="Work 2"><div class="work-overlay">ELITE</div></div>
+            <div class="work-item work-small reveal-item"><img src="assets/desktop/img3.png" alt="Work 3"><div class="work-overlay">POWER</div></div>
+
+            <!-- Set 3 -->
+            <div class="work-item work-large reveal-item"><img src="assets/desktop/img4.png" alt="Work 4"><div class="work-overlay">GLORY</div></div>
+            <div class="work-item work-small reveal-item"><img src="assets/desktop/img5.png" alt="Work 5"><div class="work-overlay">VICTORY</div></div>
+            <div class="work-item work-small reveal-item"><img src="assets/desktop/img6.png" alt="Work 6"><div class="work-overlay">LEGACY</div></div>
         </div>
     </section>
 
