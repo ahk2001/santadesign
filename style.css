@@ -128,13 +128,8 @@ body {
 }
 
 /* =========================================
-   TACTILE REMOTION PRELOADER
+   TACTILE PRELOADER
    ========================================= */
-:root {
-    /* Define slicing radii for logo parts - can be tweaked easily if needed */
-    --logo-center-radius: 26%;
-    --logo-rings-radius: 58%;
-}
 
 .tactile-preloader {
     position: fixed;
@@ -143,7 +138,6 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: #0b0b0b;
-    /* Escuro conforme solicitado */
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -152,7 +146,6 @@ body {
     transition: opacity 1s ease-in-out, visibility 1s;
 }
 
-/* Subtle paper texture overlay for the background */
 .paper-texture {
     position: absolute;
     inset: 0;
@@ -180,14 +173,6 @@ body {
     height: 100%;
 }
 
-.logo-part-wrapper {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    will-change: transform, opacity;
-}
-
 .logo-part {
     position: absolute;
     top: 0;
@@ -198,46 +183,13 @@ body {
     will-change: transform, opacity;
 }
 
-/* CSS Masks para criar as camadas a partir de uma única imagem */
-.logo-center {
-    -webkit-mask-image: radial-gradient(circle at center, black var(--logo-center-radius), transparent calc(var(--logo-center-radius) + 0.5%));
-    mask-image: radial-gradient(circle at center, black var(--logo-center-radius), transparent calc(var(--logo-center-radius) + 0.5%));
-}
-
-.logo-rings {
-    -webkit-mask-image: radial-gradient(circle at center, transparent var(--logo-center-radius), black calc(var(--logo-center-radius) + 0.5%), black var(--logo-rings-radius), transparent calc(var(--logo-rings-radius) + 0.5%));
-    mask-image: radial-gradient(circle at center, transparent var(--logo-center-radius), black calc(var(--logo-center-radius) + 0.5%), black var(--logo-rings-radius), transparent calc(var(--logo-rings-radius) + 0.5%));
-}
-
-.logo-text-top {
-    -webkit-mask-image: radial-gradient(circle at center, transparent var(--logo-rings-radius), black calc(var(--logo-rings-radius) + 0.5%));
-    mask-image: radial-gradient(circle at center, transparent var(--logo-rings-radius), black calc(var(--logo-rings-radius) + 0.5%));
-    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-    /* Top half */
-}
-
-.logo-text-bottom {
-    -webkit-mask-image: radial-gradient(circle at center, transparent var(--logo-rings-radius), black calc(var(--logo-rings-radius) + 0.5%));
-    mask-image: radial-gradient(circle at center, transparent var(--logo-rings-radius), black calc(var(--logo-rings-radius) + 0.5%));
-    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
-    /* Bottom half */
-}
-
-.logo-stars {
-    /* To reveal any remaining parts beautifully at the end, full image with low opacity base */
-    opacity: 0;
-}
-
-/* Shimmer overlay */
 .stamp-overlay {
     position: absolute;
     inset: -20px;
     background-image: none;
-    /* Removido para eliminar o quadrado indesejado */
     pointer-events: none;
     z-index: 10;
     opacity: 0;
-    /* Ocultado completamente para garantir */
 }
 
 @keyframes texture-shimmer {
@@ -261,6 +213,7 @@ body {
         transform: scale(1) translate(0, 0);
     }
 }
+
 
 /* =========================================
    PARALLAX HERO

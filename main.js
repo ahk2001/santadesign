@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (preloader) { preloader.style.opacity = '0'; preloader.style.visibility = 'hidden'; }
         body.style.overflowY = 'auto';
         if (heroContent) { heroContent.style.opacity = '1'; heroContent.style.transform = 'translateY(0)'; }
-        // Show all fade-up elements
         document.querySelectorAll('.fade-up').forEach(el => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
     }, 6000);
 
@@ -28,85 +27,114 @@ document.addEventListener("DOMContentLoaded", () => {
     // Register ScrollTrigger early
     if (typeof ScrollTrigger !== 'undefined') { gsap.registerPlugin(ScrollTrigger); }
 
-    // Create new GSAP Timeline for the Remotion style preloader
+    // Create GSAP Timeline for preloader (assets separados)
     const tl = gsap.timeline({
         onComplete: () => {
-            // Start the repeating loops for continuous pulse/glow
-            gsap.to(['.logo-center', '.logo-rings'], {
-                scale: 1.025,
-                duration: 2,
+            // Pulse loop after full reveal
+            gsap.to(['.logo-center', '.logo-ring'], {
+                scale: 1.03,
+                duration: 1.5,
                 transformOrigin: "center center",
                 yoyo: true,
                 repeat: -1,
                 ease: "sine.inOut",
-                stagger: {
-                    each: 0.1,
-                    from: "start"
-                }
+                stagger: { each: 0.15, from: "start" }
             });
 
-            gsap.to('.logo-stars', {
-                opacity: 0.6,
-                duration: 1.5,
-                yoyo: true,
-                repeat: -1,
-                ease: "sine.inOut"
-            });
-
-            // Transition out preloader after loop starts
+            // Transition out after a beat
             setTimeout(() => {
                 transitionToHero();
-            }, 200);
+            }, 400);
         }
     });
 
-    // Initial state: hide and prepare elements
-    gsap.set('.logo-center', { scale: 0, transformOrigin: 'center center' });
-    gsap.set('.logo-rings', { scale: 0, transformOrigin: 'center center', opacity: 0 });
-    // Text wrappers start displaced and invisible for floating effect
-    gsap.set('.text-top-wrapper', { y: -60, opacity: 0, rotation: -15, transformOrigin: 'center center' });
-    gsap.set('.text-bottom-wrapper', { y: 60, opacity: 0, rotation: 15, transformOrigin: 'center center' });
-    gsap.set('.logo-stars', { scale: 0.8, opacity: 0, transformOrigin: 'center center' });
+    // Initial state: tudo escondido, pronto para explodir
+    gsap.set('.logo-center', { scale: 0, opacity: 0, transformOrigin: 'center center' });
+    gsap.set('.logo-ring', { scale: 0.3, opacity: 0, transformOrigin: 'center center' });
+    gsap.set('.logo-text-top', { y: -80, opacity: 0, transformOrigin: 'center center' });
+    gsap.set('.logo-text-bottom', { y: 80, opacity: 0, transformOrigin: 'center center' });
+    // Estrelas começam ENORMES ocupando a tela toda
+    gsap.set('.logo-star-left', { scale: 20, opacity: 0, transformOrigin: 'center center' });
+    gsap.set('.logo-star-right', { scale: 20, opacity: 0, transformOrigin: 'center center' });
 
-    // Step 1: Central Disc emerges with a bounce
+    // Step 1: Centro SD EXPLODE com elastic bounce forte
     tl.to('.logo-center', {
         scale: 1,
-        duration: 0.9,
-        ease: "back.out(2)"
+        opacity: 1,
+        duration: 0.7,
+        ease: "elastic.out(1.1, 0.4)"
     });
 
-    // Step 2: Rings expanding outward
-    tl.to('.logo-rings', {
+    // Step 2: Anel externo expande com impacto
+    tl.to('.logo-ring', {
         scale: 1,
         opacity: 1,
-        duration: 0.8,
-        ease: "power2.out"
-    }, "-=0.4");
-
-    // Step 3: Text arches float in with smooth curving movements
-    tl.to('.text-top-wrapper', {
-        y: 0,
-        opacity: 1,
-        rotation: 0,
-        duration: 1.2,
-        ease: "power3.out"
-    }, "-=0.4");
-
-    tl.to('.text-bottom-wrapper', {
-        y: 0,
-        opacity: 1,
-        rotation: 0,
-        duration: 1.2,
-        ease: "power3.out"
-    }, "-=1.0");
-
-    // Step 4: Stars gently appear (shows the full logo with an elegant glow transition)
-    tl.to('.logo-stars', {
-        scale: 1,
-        opacity: 1,
-        duration: 1.2,
-        ease: "power2.inOut"
+        duration: 0.6,
+        ease: "back.out(2.5)"
     }, "-=0.2");
+
+    // Step 3: Texto superior SLAM de cima
+    tl.to('.logo-text-top', {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power4.out"
+    }, "-=0.1");
+
+    // Step 4: Texto inferior SLAM de baixo
+    tl.to('.logo-text-bottom', {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power4.out"
+    }, "-=0.35");
+
+    // Step 5: Pausa curta antes do impacto final
+    tl.to({}, { duration: 0.15 });
+
+    // Step 6: ★★ ESTRELAS — zoom-out de tela cheia até a posição final
+    tl.to('.logo-star-left', {
+        scale: 1,
+        opacity: 1,
+        duration: 0.45,
+        ease: "power3.out"
+    });
+
+    tl.to('.logo-star-right', {
+        scale: 1,
+        opacity: 1,
+        duration: 0.45,
+        ease: "power3.out"
+    }, "-=0.40");
+
+    // Step 7: IMPACTO — logo inteiro faz um bump de escala como onda de choque
+    tl.add("impact");
+
+    // Scale bump — logo inteiro "incha" e volta com bounce
+    tl.to('.logo-assembly', {
+        scale: 1.06,
+        duration: 0.08,
+        ease: "power4.out"
+    }, "impact");
+
+    tl.to('.logo-assembly', {
+        scale: 1,
+        duration: 0.6,
+        ease: "elastic.out(1.2, 0.3)"
+    });
+
+    // Flash laranja suave no impacto
+    tl.to('.logo-assembly', {
+        filter: 'drop-shadow(0px 0px 25px rgba(253, 109, 20, 0.7))',
+        duration: 0.15,
+        ease: "power2.out"
+    }, "impact");
+
+    tl.to('.logo-assembly', {
+        filter: 'drop-shadow(0px 8px 12px rgba(0, 0, 0, 0.4)) drop-shadow(0px 2px 4px rgba(253, 109, 20, 0.2))',
+        duration: 1,
+        ease: "power2.out"
+    });
 
     function transitionToHero() {
         clearTimeout(safetyTimeout); // Cancel safety timeout since preloader is exiting normally
@@ -119,7 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 body.style.overflowY = 'auto'; // allow scroll
 
                 // Initialize hero animations with delay (coordinated with layer entrance)
-                // We Wait until the last image is close to finishing (~3-3.5s)
                 gsap.to(['.hero-content', '.language-switcher'], {
                     opacity: 1,
                     y: 0,
@@ -129,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     ease: "power2.out",
                     pointerEvents: "auto",
                     onStart: () => {
-                        // Ensure they are visible if they had display: none or similar
                         if (heroContent) heroContent.style.visibility = 'visible';
                     }
                 });
@@ -164,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (index > 0) {
                 gsap.set(layer, {
                     y: 200,
-                    opacity: 0 // Inicia invisível para o efeito de fade-in
+                    opacity: 0
                 });
             }
         });
@@ -178,10 +204,8 @@ document.addEventListener("DOMContentLoaded", () => {
             delay: 0.1,
             ease: "expo.out",
             onComplete: () => {
-                // Ao terminar a entrada, limpamos o transform para não conflitar com o parallax
-                // e forçamos o ScrollTrigger a recalcular tudo (essencial para mobile)
-                gsap.set(Array.from(layers).slice(1), { clearProps: "y" });
-                ScrollTrigger.refresh();
+                // Parallax só inicia DEPOIS que a entrada terminou
+                startParallax();
             }
         });
 
@@ -196,55 +220,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const speeds = isDesktop ? baseSpeeds : mobileSpeeds;
 
-        // Scroll Parallax (Both Desktop & Mobile)
-        layers.forEach((layer, index) => {
-            gsap.to(layer, {
-                y: () => window.innerHeight * speeds[index],
-                ease: "none",
-                scrollTrigger: {
-                    trigger: ".hero-parallax",
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true,
-                    invalidateOnRefresh: true // Recalcula ao redimensionar (comum em mobile)
-                }
-            });
-        });
+        // Função que inicia o parallax (só chamada APÓS a entrada terminar)
+        function startParallax() {
+            ScrollTrigger.refresh();
 
-        // Mouse Parallax (Only Desktop)
-        if (isDesktop) {
-            const heroSection = document.querySelector('.hero-parallax');
-
-            heroSection.addEventListener("mousemove", (e) => {
-                const x = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
-                const y = (e.clientY / window.innerHeight - 0.5) * 2; // -1 to 1
-
-                layers.forEach((layer, index) => {
-                    // Reverse movement: foreground moves more than background
-                    const movementX = x * (index + 1) * 8;
-                    const movementY = y * (index + 1) * 8;
-
-                    gsap.to(layer, {
-                        x: movementX,
-                        y: movementY,
-                        duration: 1,
-                        ease: "power2.out",
-                        overwrite: "auto" // Only overwrite mouse movements, ScrollTrigger takes care of its own y via scrub
-                    });
+            // Scroll Parallax (Both Desktop & Mobile)
+            layers.forEach((layer, index) => {
+                gsap.to(layer, {
+                    y: () => window.innerHeight * speeds[index],
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".hero-parallax",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true,
+                        invalidateOnRefresh: true
+                    }
                 });
             });
 
-            heroSection.addEventListener("mouseleave", () => {
-                layers.forEach((layer) => {
-                    gsap.to(layer, {
-                        x: 0,
-                        y: 0,
-                        duration: 1.5,
-                        ease: "power2.out",
-                        overwrite: "auto"
+            // Mouse Parallax (Only Desktop)
+            if (isDesktop) {
+                const heroSection = document.querySelector('.hero-parallax');
+
+                heroSection.addEventListener("mousemove", (e) => {
+                    const x = (e.clientX / window.innerWidth - 0.5) * 2;
+                    const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+                    layers.forEach((layer, index) => {
+                        const movementX = x * (index + 1) * 8;
+                        const movementY = y * (index + 1) * 8;
+
+                        gsap.to(layer, {
+                            x: movementX,
+                            y: movementY,
+                            duration: 1,
+                            ease: "power2.out",
+                            overwrite: "auto"
+                        });
                     });
                 });
-            });
+
+                heroSection.addEventListener("mouseleave", () => {
+                    layers.forEach((layer) => {
+                        gsap.to(layer, {
+                            x: 0,
+                            y: 0,
+                            duration: 1.5,
+                            ease: "power2.out",
+                            overwrite: "auto"
+                        });
+                    });
+                });
+            }
         }
     }
 
