@@ -1,7 +1,8 @@
 :root {
     --bg-color: #0b0b0b;
     --text-color: #ffffff;
-    --accent: #E50914; /* Example accent */
+    --accent: #E50914;
+    /* Example accent */
 }
 
 * {
@@ -15,7 +16,8 @@ body {
     color: var(--text-color);
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
-    overflow-y: hidden; /* Hidden until preloader finishes */
+    overflow-y: hidden;
+    /* Hidden until preloader finishes */
 }
 
 /* =========================================
@@ -118,6 +120,7 @@ body {
         top: 20px;
         right: 20px;
     }
+
     .lang-current {
         padding: 8px 16px;
         font-size: 0.8rem;
@@ -139,7 +142,8 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #0b0b0b; /* Escuro conforme solicitado */
+    background-color: #0b0b0b;
+    /* Escuro conforme solicitado */
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -208,13 +212,15 @@ body {
 .logo-text-top {
     -webkit-mask-image: radial-gradient(circle at center, transparent var(--logo-rings-radius), black calc(var(--logo-rings-radius) + 0.5%));
     mask-image: radial-gradient(circle at center, transparent var(--logo-rings-radius), black calc(var(--logo-rings-radius) + 0.5%));
-    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%); /* Top half */
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+    /* Top half */
 }
 
 .logo-text-bottom {
     -webkit-mask-image: radial-gradient(circle at center, transparent var(--logo-rings-radius), black calc(var(--logo-rings-radius) + 0.5%));
     mask-image: radial-gradient(circle at center, transparent var(--logo-rings-radius), black calc(var(--logo-rings-radius) + 0.5%));
-    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%); /* Bottom half */
+    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+    /* Bottom half */
 }
 
 .logo-stars {
@@ -226,18 +232,34 @@ body {
 .stamp-overlay {
     position: absolute;
     inset: -20px;
-    background-image: none; /* Removido para eliminar o quadrado indesejado */
+    background-image: none;
+    /* Removido para eliminar o quadrado indesejado */
     pointer-events: none;
     z-index: 10;
-    opacity: 0; /* Ocultado completamente para garantir */
+    opacity: 0;
+    /* Ocultado completamente para garantir */
 }
 
 @keyframes texture-shimmer {
-    0% { transform: scale(1) translate(0, 0); }
-    25% { transform: scale(1.02) translate(1px, -1px); }
-    50% { transform: scale(1) translate(-1px, 1px); }
-    75% { transform: scale(1.01) translate(1px, 1px); }
-    100% { transform: scale(1) translate(0, 0); }
+    0% {
+        transform: scale(1) translate(0, 0);
+    }
+
+    25% {
+        transform: scale(1.02) translate(1px, -1px);
+    }
+
+    50% {
+        transform: scale(1) translate(-1px, 1px);
+    }
+
+    75% {
+        transform: scale(1.01) translate(1px, 1px);
+    }
+
+    100% {
+        transform: scale(1) translate(0, 0);
+    }
 }
 
 /* =========================================
@@ -264,14 +286,22 @@ body {
 
 .layer {
     position: absolute;
-    top: -25%; /* Aumentado para acomodar os 200px de deslocamento sem mostrar a borda */
+    top: -25%;
+    /* Aumentado para acomodar os 200px de deslocamento sem mostrar a borda */
     left: -10%;
-    width: 120%; 
-    height: 150%; /* Altura ajustada para manter a proporção */
+    width: 120%;
+    height: 150%;
+    /* Altura ajustada para manter a proporção */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     will-change: transform;
+}
+
+/* Ajuste solicitado: 70px para esquerda e 35px para baixo */
+.desktop-layers .layer-4 {
+    left: calc(-10% - 70px);
+    top: calc(-25% + 35px);
 }
 
 /* Mantém a 'folga' maior apenas no mobile para evitar o bug da barra de endereços */
@@ -280,25 +310,54 @@ body {
         top: -45%;
         height: 190%;
     }
-    /* Jogador pequeno: mais para esquerda e para cima */
+
+    /* Jogador pequeno: mais para esquerda e para cima + opacidade 20% + deslocamento 20px esquerda */
     .mobile-layers .layer-5 {
         background-position: 15% 35%;
+        opacity: 0.4 !important;
+        /* !important necessário para sobrepor a animação de entrada do GSAP */
+        left: calc(-10% - 20px);
+        width: calc(120% + 200px);
+        /* Aumentando um pouco mais a largura para segurança conforme as outras layers */
     }
+
     /* Olhos do rosto grande: desloca mais para baixo */
     .mobile-layers .layer-2,
     .mobile-layers .layer-3,
     .mobile-layers .layer-4 {
         background-position: center 55%;
     }
+
+    /* Ajuste solicitado: 100px para esquerda e 40px para cima */
+    .mobile-layers .layer-4 {
+        left: calc(-10% - 100px);
+        top: calc(-45% - 40px);
+        width: calc(120% + 100px);
+    }
+
+    /* Ajuste solicitado: 50px para baixo */
+    .mobile-layers .layer-3 {
+        top: calc(-45% + 50px);
+    }
 }
 
 /* Mobile vs Desktop switching */
-.desktop-layers { display: block; }
-.mobile-layers { display: none; }
+.desktop-layers {
+    display: block;
+}
+
+.mobile-layers {
+    display: none;
+}
 
 @media (max-width: 768px) {
-    .desktop-layers { display: none; }
-    .mobile-layers { display: block; }
+    .desktop-layers {
+        display: none;
+    }
+
+    .mobile-layers {
+        display: block;
+    }
 }
 
 .hero-content {
@@ -316,7 +375,7 @@ body {
     height: auto;
     margin-bottom: 25px;
     /* black shadow behind logo */
-    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 30px rgba(0,0,0,0.8));
+    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 30px rgba(0, 0, 0, 0.8));
 }
 
 .hero-content h1 {
@@ -331,17 +390,17 @@ body {
 
 .text-white {
     color: #ffffff;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
 }
 
 .text-orange {
     color: #fd6d14;
-    text-shadow: 0 0 40px rgba(253, 109, 20, 0.6), 0 4px 20px rgba(0,0,0,0.8);
+    text-shadow: 0 0 40px rgba(253, 109, 20, 0.6), 0 4px 20px rgba(0, 0, 0, 0.8);
 }
 
 .hero-content p {
     font-size: 1.3rem;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
     font-weight: 400;
     color: #d1d1d1;
     margin-top: 15px;
@@ -377,13 +436,16 @@ body {
         width: 100px;
         margin-bottom: 15px;
     }
+
     .hero-content h1 {
         font-size: 3rem;
     }
+
     .hero-content p {
         font-size: 1rem;
         margin-bottom: 30px;
     }
+
     .btn-primary {
         padding: 14px 35px;
         font-size: 1rem;
@@ -392,7 +454,8 @@ body {
 
 .scroll-indicator {
     position: absolute;
-    bottom: -15vh; /* Push down relative to content */
+    bottom: -15vh;
+    /* Push down relative to content */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -415,10 +478,25 @@ body {
 }
 
 @keyframes scrollLine {
-    0% { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    50.1% { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
+    0% {
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+
+    50% {
+        transform: scaleY(1);
+        transform-origin: top;
+    }
+
+    50.1% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+    }
+
+    100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+    }
 }
 
 /* =========================================
@@ -431,7 +509,8 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
-    z-index: 2; /* Sobrepor o background parallax se ele fosse fixed, mas aqui está fluxo normal */
+    z-index: 2;
+    /* Sobrepor o background parallax se ele fosse fixed, mas aqui está fluxo normal */
     padding: 15vh 5%;
 }
 
@@ -456,20 +535,28 @@ body {
     font-size: clamp(1.2rem, 2.5vw, 2.2rem);
     line-height: 1.5;
     margin-bottom: 2.5rem;
-    color: #444444; /* Initial grey color */
+    color: #444444;
+    /* Initial grey color */
     max-width: 900px;
 }
 
 .word {
     display: inline-block;
-    color: #333333; /* Default grey, GSAP vai animar isso */
+    color: #333333;
+    /* Default grey, GSAP vai animar isso */
 }
 
 /* =========================================
    GENERIC UTILS & ANIMATION CLASSES
    ========================================= */
-.text-center { text-align: center; }
-.px-5 { padding-left: 5%; padding-right: 5%; }
+.text-center {
+    text-align: center;
+}
+
+.px-5 {
+    padding-left: 5%;
+    padding-right: 5%;
+}
 
 .fade-up {
     opacity: 0;
@@ -483,7 +570,7 @@ body {
 .stats-section {
     background-color: #050505;
     padding: 10vh 5%;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .stats-container {
@@ -525,7 +612,8 @@ body {
 }
 
 .stat-line {
-    width: 0; /* Anima via GSAP */
+    width: 0;
+    /* Anima via GSAP */
     height: 2px;
     background-color: #fd6d14;
     margin-top: 30px;
@@ -583,7 +671,7 @@ body {
 .portfolio-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 50%);
     opacity: 0;
     transition: opacity 0.4s ease;
     display: flex;
@@ -618,13 +706,20 @@ body {
 }
 
 @media (max-width: 992px) {
-    .portfolio-item, .portfolio-item.img-large, .portfolio-item.img-wide {
+
+    .portfolio-item,
+    .portfolio-item.img-large,
+    .portfolio-item.img-wide {
         grid-column: span 6;
         aspect-ratio: 1;
     }
 }
+
 @media (max-width: 576px) {
-    .portfolio-item, .portfolio-item.img-large, .portfolio-item.img-wide {
+
+    .portfolio-item,
+    .portfolio-item.img-large,
+    .portfolio-item.img-wide {
         grid-column: span 12;
     }
 }
@@ -651,10 +746,11 @@ body {
     aspect-ratio: 16/10;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
 }
 
-.image-after, .image-before {
+.image-after,
+.image-before {
     position: absolute;
     top: 0;
     left: 0;
@@ -663,7 +759,8 @@ body {
 }
 
 .image-before {
-    width: 50%; /* Controlado pelo range */
+    width: 50%;
+    /* Controlado pelo range */
     border-right: 2px solid white;
     z-index: 2;
     overflow: hidden;
@@ -676,14 +773,17 @@ body {
 }
 
 .image-before img {
-    width: 1000px; /* Deve ser do tamanho do container ou usar object-fit */
+    width: 1000px;
+    /* Deve ser do tamanho do container ou usar object-fit */
     height: 100%;
     object-fit: cover;
     object-position: left;
     max-width: none;
 }
+
 /* Responsive image size inside slider container */
-.image-before > img, .image-after > img {
+.image-before>img,
+.image-after>img {
     position: absolute;
     top: 0;
     left: 0;
@@ -696,7 +796,7 @@ body {
     position: absolute;
     top: 20px;
     padding: 8px 15px;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(5px);
     font-size: 0.8rem;
     font-weight: 700;
@@ -704,8 +804,15 @@ body {
     border-radius: 4px;
     z-index: 10;
 }
-.label-left { left: 20px; }
-.label-right { right: 20px; z-index: 10; }
+
+.label-left {
+    left: 20px;
+}
+
+.label-right {
+    right: 20px;
+    z-index: 10;
+}
 
 .slider {
     position: absolute;
@@ -720,6 +827,7 @@ body {
     margin: 0;
     cursor: ew-resize;
 }
+
 .slider::-webkit-slider-thumb {
     appearance: none;
     width: 40px;
@@ -731,7 +839,8 @@ body {
 .slider-handle {
     position: absolute;
     top: 0;
-    left: 50%; /* Controlado pelo JS */
+    left: 50%;
+    /* Controlado pelo JS */
     width: 2px;
     height: 100%;
     background-color: white;
@@ -755,7 +864,7 @@ body {
     color: white;
     font-weight: bold;
     font-size: 1.2rem;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 /* =========================================
@@ -798,7 +907,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.4);
     opacity: 0;
     transition: opacity 0.4s ease;
     font-size: 1.5rem;
@@ -807,7 +916,9 @@ body {
     backdrop-filter: blur(2px);
 }
 
-.work-item:hover .work-overlay { opacity: 1; }
+.work-item:hover .work-overlay {
+    opacity: 1;
+}
 
 /* =========================================
    5. CTA & FOOTER
@@ -815,7 +926,7 @@ body {
 .cta-section {
     padding: 15vh 5%;
     text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .cta-section h2 {
