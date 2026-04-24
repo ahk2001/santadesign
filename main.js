@@ -294,49 +294,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Word reveal setup
         const revealTexts = document.querySelectorAll('.reveal-text');
+        const allWords = [];
+
+        // Kill existing reveal triggers to avoid duplicates
+        ScrollTrigger.getAll().forEach(st => {
+            if (st.vars.id === 'wordReveal') st.kill();
+        });
 
         revealTexts.forEach((text) => {
-            // Kill existing ScrollTriggers on this element to avoid duplicates after language change
-            ScrollTrigger.getAll().forEach(st => {
-                if (st.trigger === text) st.kill();
-            });
-
             // Split text into words, wrap in spans
             const content = text.innerText;
-            const words = content.split(' ');
+            const words = content.split(/\s+/); // Split by any whitespace
 
             // clear contents
             text.innerHTML = '';
 
-            const wordsArray = [];
             words.forEach(word => {
+                if (word.trim().length === 0) return;
                 const span = document.createElement('span');
                 span.className = 'word';
                 span.innerText = word;
-                // Add a space after each word except the last one if we want, but inline-block + margin could work.
-                // An easier way is just keep it inline but preserve spaces.
-                // Wait, if it's inline-block, trailing spaces inside won't work perfectly. Let's just append TextNode space.
                 text.appendChild(span);
                 text.appendChild(document.createTextNode(' '));
-                wordsArray.push(span);
+                allWords.push(span);
             });
+        });
 
-            // Animate words color from grey to white over scroll
-            gsap.fromTo(wordsArray,
+        // Animate ALL words as a single sequence
+        if (allWords.length > 0) {
+            gsap.fromTo(allWords,
                 { color: "#333333" },
                 {
                     color: "#ffffff",
                     ease: "none",
                     stagger: 0.1,
                     scrollTrigger: {
-                        trigger: text,
-                        start: "top 80%", // Animates when it hits the lower part of screen
-                        end: "bottom 50%", // Finishes animating exactly mid-screen
+                        id: 'wordReveal',
+                        trigger: ".about-container",
+                        start: "top 85%", // Start reveal slightly earlier
+                        end: "bottom 60%", // End reveal when container is past midpoint
                         scrub: true
                     }
                 }
             );
-        });
+        }
     }
 
     // 4. Stats Animation Logic
