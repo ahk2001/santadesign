@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Prevenir restauração de scroll do browser (preloader cobre tudo)
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
     // 1. Tactile Remotion Preloader Logic (Layered PNG)
     const preloader = document.getElementById('preloader');
     const body = document.body;
@@ -10,7 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (preloader) { preloader.style.opacity = '0'; preloader.style.visibility = 'hidden'; }
         body.style.overflowY = 'auto';
         if (heroContent) { heroContent.style.opacity = '1'; heroContent.style.transform = 'translateY(0)'; }
-        document.querySelectorAll('.fade-up').forEach(el => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
+        // Inicializar componentes ScrollTrigger no fallback
+        try { initAboutSection(); } catch(e) {}
+        try { initStatsAnimations(); } catch(e) {}
+        try { initFadeUpElements(); } catch(e) {}
+        try { initWorksReveal(); } catch(e) {}
+        // Forçar visibilidade
+        document.querySelectorAll('.fade-up, .reveal-item, .stat-item').forEach(el => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
     }, 6000);
 
     // Guard: if GSAP didn't load from CDN, skip all animations
@@ -136,6 +148,54 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "power2.out"
     });
 
+    // Função que força a visibilidade de elementos animáveis que já passaram do viewport
+    // Resolve o problema de seções pretas ao recarregar a página fora da home
+    function forceShowPassedElements() {
+        // Esperar o browser fazer reflow após overflow-y: auto
+        requestAnimationFrame(() => {
+            const viewportHeight = window.innerHeight;
+
+            // 1. Fade-up e reveal-item
+            document.querySelectorAll('.fade-up, .reveal-item').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < viewportHeight) {
+                    gsap.set(el, { opacity: 1, y: 0, clearProps: "transform" });
+                }
+            });
+
+            // 2. Stat items (opacity e y controlados por GSAP, contadores e linhas)
+            document.querySelectorAll('.stat-item').forEach(item => {
+                const rect = item.getBoundingClientRect();
+                if (rect.top < viewportHeight) {
+                    gsap.set(item, { opacity: 1, y: 0, clearProps: "transform" });
+                    
+                    // Mostrar o valor final do contador
+                    const countSpan = item.querySelector('.count-up');
+                    if (countSpan) {
+                        const originalValue = countSpan.getAttribute('data-target');
+                        if (originalValue) {
+                            countSpan.innerText = originalValue;
+                        }
+                    }
+                    
+                    // Expandir a linha
+                    const line = item.querySelector('.stat-line');
+                    if (line) {
+                        gsap.set(line, { width: '100%' });
+                    }
+                }
+            });
+
+            // 3. Word reveal (texto about section)
+            document.querySelectorAll('.word').forEach(word => {
+                const rect = word.getBoundingClientRect();
+                if (rect.top < viewportHeight) {
+                    gsap.set(word, { color: '#ffffff' });
+                }
+            });
+        });
+    }
+
     function transitionToHero() {
         clearTimeout(safetyTimeout); // Cancel safety timeout since preloader is exiting normally
         gsap.to(preloader, {
@@ -145,6 +205,16 @@ document.addEventListener("DOMContentLoaded", () => {
             onComplete: () => {
                 preloader.style.visibility = 'hidden';
                 body.style.overflowY = 'auto'; // allow scroll
+
+                // Inicializar componentes ScrollTrigger com delay para garantir reflow completo
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        try { initAboutSection(); } catch (e) { console.error('[Santa] About error:', e); }
+                        try { initStatsAnimations(); } catch (e) { console.error('[Santa] Stats error:', e); }
+                        try { initFadeUpElements(); } catch (e) { console.error('[Santa] FadeUp error:', e); }
+                        try { initWorksReveal(); } catch (e) { console.error('[Santa] WorksReveal error:', e); }
+                    });
+                });
 
                 // Initialize hero animations with delay (coordinated with layer entrance)
                 gsap.to(['.hero-content', '.language-switcher'], {
@@ -359,6 +429,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 transformStyle: "preserve-3d" 
             });
             gsap.set(line, { width: 0 });
+            countSpan.setAttribute('data-target', targetValue); // Salvar valor original
             countSpan.innerText = "0";
 
             // Timeline disparada pelo Scroll
@@ -708,12 +779,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Initialize all components safely
+    // Initialize all components safely (apenas os que NAO dependem do ScrollTrigger)
+    // Os componentes com ScrollTrigger são inicializados no transitionToHero()
     try { initLanguageSwitcher(); } catch (e) { console.error('[Santa] LangSwitcher error:', e); }
-    try { initStatsAnimations(); } catch (e) { console.error('[Santa] Stats error:', e); }
     try { initProcessSlider(); } catch (e) { console.error('[Santa] Slider error:', e); }
-    try { initFadeUpElements(); } catch (e) { console.error('[Santa] FadeUp error:', e); }
-    try { initWorksReveal(); } catch (e) { console.error('[Santa] WorksReveal error:', e); }
     try { initLightbox(); } catch (e) { console.error('[Santa] Lightbox error:', e); }
 
 });
