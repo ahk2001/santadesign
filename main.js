@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try { initStatsAnimations(); } catch(e) {}
         try { initFadeUpElements(); } catch(e) {}
         try { initWorksReveal(); } catch(e) {}
+        try { initDobra6Montage(); } catch(e) {}
         // Forçar visibilidade
         document.querySelectorAll('.fade-up, .reveal-item, .stat-item').forEach(el => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
     }, 6000);
@@ -36,8 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return; // exit DOMContentLoaded entirely
     }
 
-    // Register ScrollTrigger early
+    // Register ScrollTrigger & ScrollToPlugin early
     if (typeof ScrollTrigger !== 'undefined') { gsap.registerPlugin(ScrollTrigger); }
+    if (typeof ScrollToPlugin !== 'undefined') { gsap.registerPlugin(ScrollToPlugin); }
 
     // Create GSAP Timeline for preloader (assets separados)
     const tl = gsap.timeline({
@@ -213,6 +215,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         try { initStatsAnimations(); } catch (e) { console.error('[Santa] Stats error:', e); }
                         try { initFadeUpElements(); } catch (e) { console.error('[Santa] FadeUp error:', e); }
                         try { initWorksReveal(); } catch (e) { console.error('[Santa] WorksReveal error:', e); }
+                        try { initDobra6Montage(); } catch (e) { console.error('[Santa] Dobra6 Montage error:', e); }
+                        try { initCTAAnimation(); } catch (e) { console.error('[Santa] CTA error:', e); }
                     });
                 });
 
@@ -569,6 +573,49 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // 6.6. Dobra 6 — Montagem Sequencial por Scroll
+    function initDobra6Montage() {
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+        const container = document.querySelector('.dobra6-reveal-container');
+        if (!container) return;
+
+        // Selecionar apenas os frames visíveis (desktop ou mobile)
+        const isDesktop = window.innerWidth > 768;
+        const selector = isDesktop ? '.desktop-frames .dobra6-frame' : '.mobile-frames .dobra6-frame';
+        const frames = gsap.utils.toArray(selector);
+
+        if (frames.length < 2) return;
+
+        const totalFrames = frames.length; // 9
+        const transitions = totalFrames - 1; // 8 transições
+
+        // O container tem 1000vh:
+        //   - Primeiros ~10% (100vh): reveal (seção anterior saindo)
+        //   - 10% a 90% (800vh): 8 transições de imagens
+        //   - Últimos ~10% (100vh): buffer para Dobra 7 cobrir
+
+        frames.forEach((frame, index) => {
+            if (index === 0) return; // Primeira já está visível
+
+            // Calcular start e end como porcentagem do container
+            const startPercent = 10 + ((index - 1) / transitions) * 80; // 10% a 90%
+            const endPercent = 10 + (index / transitions) * 80;
+
+            gsap.to(frame, {
+                opacity: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: container,
+                    start: () => `top+=${container.offsetHeight * startPercent / 100} top`,
+                    end: () => `top+=${container.offsetHeight * endPercent / 100} top`,
+                    scrub: 0.3,
+                    invalidateOnRefresh: true
+                }
+            });
+        });
+    }
+
     // 7. Language Switcher Logic
     const translations = {
         pt: {
@@ -591,7 +638,7 @@ document.addEventListener("DOMContentLoaded", () => {
             final_art: "ARTE FINAL",
             initial_photo: "FOTO INICIAL",
             cta_title: 'PRONTO PARA ELEVAR <span class="text-orange">SUA IMAGEM?</span>',
-            cta_btn: 'PEÇA UM ORÇAMENTO <span class="arrow">&rarr;</span>',
+            cta_btn: 'FALE COM A GENTE <span class="arrow">&rarr;</span>',
             footer_text: "Transformando atletas em marcas visuais icônicas desde 2020",
             footer_copyright: "Todos os direitos reservados."
         },
@@ -615,7 +662,7 @@ document.addEventListener("DOMContentLoaded", () => {
             final_art: "FINAL ART",
             initial_photo: "INITIAL PHOTO",
             cta_title: 'READY TO ELEVATE <span class="text-orange">YOUR IMAGE?</span>',
-            cta_btn: 'REQUEST A QUOTE <span class="arrow">&rarr;</span>',
+            cta_btn: 'CONTACT US <span class="arrow">&rarr;</span>',
             footer_text: "Transforming athletes into iconic visual brands since 2020",
             footer_copyright: "All rights reserved."
         },
@@ -639,7 +686,7 @@ document.addEventListener("DOMContentLoaded", () => {
             final_art: "ARTE FINAL",
             initial_photo: "FOTO INICIAL",
             cta_title: '¿LISTO PARA ELEVAR <span class="text-orange">TU IMAGEN?</span>',
-            cta_btn: 'SOLICITAR PRESUPUESTO <span class="arrow">&rarr;</span>',
+            cta_btn: 'HABLA COM NOSOTROS <span class="arrow">&rarr;</span>',
             footer_text: "Transformando atletas em marcas visuais icônicas desde 2020",
             footer_copyright: "Todos los derechos reservados."
         }
@@ -784,5 +831,46 @@ document.addEventListener("DOMContentLoaded", () => {
     try { initLanguageSwitcher(); } catch (e) { console.error('[Santa] LangSwitcher error:', e); }
     try { initProcessSlider(); } catch (e) { console.error('[Santa] Slider error:', e); }
     try { initLightbox(); } catch (e) { console.error('[Santa] Lightbox error:', e); }
+
+    function initCTAAnimation() {
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+        const ctaContent = document.querySelector('.cta-content');
+        if (!ctaContent) return;
+
+        gsap.fromTo(ctaContent.children, 
+            { y: 60, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                stagger: 0.2,
+                ease: "expo.out",
+                scrollTrigger: {
+                    trigger: ".cta-section",
+                    start: "top 85%",
+                    toggleActions: "play none none none"
+                }
+            }
+        );
+    }
+
+    // 9. Fast Smooth Scroll for Anchor Links (User Requested)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || href === '') return;
+
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                gsap.to(window, {
+                    duration: 0.8, // Rolagem rápida e impactante
+                    scrollTo: { y: target, autoKill: true },
+                    ease: "power2.inOut"
+                });
+            }
+        });
+    });
 
 });

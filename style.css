@@ -244,7 +244,7 @@ body {
     left: -10%;
     width: 120%;
     height: 150%;
-    /* Altura ajustada para manter a proporção */
+    /* Altura ajustada para manter a proporÃ§Ã£o */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -257,7 +257,7 @@ body {
     top: calc(-25% + 35px);
 }
 
-/* Mantém a 'folga' maior apenas no mobile para evitar o bug da barra de endereços */
+/* MantÃ©m a 'folga' maior apenas no mobile para evitar o bug da barra de endereÃ§os */
 @media (max-width: 768px) {
     .layer {
         top: -45%;
@@ -268,10 +268,10 @@ body {
     .mobile-layers .layer-5 {
         background-position: 15% 35%;
         opacity: 0.4 !important;
-        /* !important necessário para sobrepor a animação de entrada do GSAP */
+        /* !important necessÃ¡rio para sobrepor a animaÃ§Ã£o de entrada do GSAP */
         left: calc(-10% - 20px);
         width: calc(120% + 200px);
-        /* Aumentando um pouco mais a largura para segurança conforme as outras layers */
+        /* Aumentando um pouco mais a largura para seguranÃ§a conforme as outras layers */
     }
 
     /* Olhos do rosto grande: desloca mais para baixo */
@@ -463,7 +463,7 @@ body {
     align-items: center;
     position: relative;
     z-index: 2;
-    /* Sobrepor o background parallax se ele fosse fixed, mas aqui está fluxo normal */
+    /* Sobrepor o background parallax se ele fosse fixed, mas aqui estÃ¡ fluxo normal */
     padding: 15vh 5%;
 }
 
@@ -681,7 +681,7 @@ body {
     grid-column: span 8 !important;
     grid-row: span 2 !important;
     aspect-ratio: auto !important; 
-    /* No desktop, a grande ocupa 2 linhas para manter o 4:5 relativo às pequenas */
+    /* No desktop, a grande ocupa 2 linhas para manter o 4:5 relativo Ã s pequenas */
 }
 
 .work-small {
@@ -719,6 +719,20 @@ body {
     .portfolio-grid,
     .works-grid {
         gap: 15px;
+    }
+
+    /* Ajuste SessÃ£o 4: Remover grayscale e hover no mobile */
+    .portfolio-item img {
+        filter: grayscale(0%) !important;
+        transform: none !important;
+    }
+
+    .portfolio-item:hover img {
+        transform: none !important;
+    }
+
+    .portfolio-overlay {
+        opacity: 0 !important;
     }
 }
 
@@ -870,7 +884,7 @@ body {
 
 
 
-/* Estado inicial para animação de entrada (usado no portfólio) */
+/* Estado inicial para animaÃ§Ã£o de entrada (usado no portfÃ³lio) */
 .reveal-item {
     opacity: 0;
     transform: translateY(60px);
@@ -878,17 +892,16 @@ body {
 }
 
 /* =========================================
-   6. DOBRA 6: STICKY REVEAL SECTION
+   6. DOBRA 6: STICKY MONTAGE REVEAL
    ========================================= */
 
-/* Container que define a 'área de influência' do efeito */
+/* Container: 100vh de "reveal" + 100vh Ã— 8 transiÃ§Ãµes + 100vh buffer para Dobra 7 cobrir */
 .dobra6-reveal-container {
     position: relative;
-    height: 200vh; /* 100vh para o reveal + 100vh para o 'pinned' antes da sobra 7 cobrir */
+    height: 1000vh; /* 100vh reveal + 800vh montagem + 100vh saÃ­da */
     z-index: 1;
     overflow: visible;
-    /* Truque: traz a section para debaixo da anterior para o reveal */
-    margin-top: -100vh; 
+    margin-top: -100vh; /* Fica atrÃ¡s da seÃ§Ã£o anterior para o reveal */
 }
 
 .dobra6-sticky {
@@ -900,15 +913,42 @@ body {
     background-color: #000;
 }
 
-.dobra6-sticky picture img {
+/* Container das imagens empilhadas */
+.dobra6-frames {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Cada frame empilhada */
+.dobra6-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     display: block;
+    opacity: 0;
+    will-change: opacity;
 }
 
-/* Ajuste nas dobras adjacentes para garantir a sobreposição */
+/* Primeira imagem visÃ­vel por padrÃ£o */
+.dobra6-frame:first-child {
+    opacity: 1;
+}
+
+/* Desktop/Mobile toggle (mesmo padrÃ£o do hero) */
+.dobra6-frames.desktop-frames { display: block; }
+.dobra6-frames.mobile-frames { display: none; }
+
+@media (max-width: 768px) {
+    .dobra6-frames.desktop-frames { display: none; }
+    .dobra6-frames.mobile-frames { display: block; }
+}
+
+/* Ajuste nas dobras adjacentes para garantir a sobreposiÃ§Ã£o */
 .process-section {
     position: relative;
     z-index: 10;
@@ -968,7 +1008,7 @@ body {
    LIGHTBOX STYLES
    ========================================= */
 .lightbox {
-    display: flex; /* Mantido flex para estrutura, mas invisível */
+    display: flex; /* Mantido flex para estrutura, mas invisÃ­vel */
     visibility: hidden;
     position: fixed;
     z-index: 100000;
@@ -988,7 +1028,7 @@ body {
 }
 
 .lightbox.open {
-    /* GSAP vai lidar com isso, mas mantemos o fallback simples aqui se necessário */
+    /* GSAP vai lidar com isso, mas mantemos o fallback simples aqui se necessÃ¡rio */
     visibility: visible;
     opacity: 1;
 }
@@ -1058,48 +1098,206 @@ body {
 /* =========================================
    8. CTA & FOOTER
    ========================================= */
+/* =========================================
+   6. CTA SECTION (DOBRA 8)
+   ========================================= */
 .cta-section {
     position: relative;
-    z-index: 10;
+    min-height: 100vh;
+    width: 100%;
+    margin-top: 15vh; /* Espaço preto entre a galeria e a imagem */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
     background-color: var(--bg-color);
-    padding: 15vh 5%;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 15vh 0 5vh;
 }
 
-.cta-section h2 {
-    font-size: clamp(2rem, 5vw, 4rem);
-    margin-bottom: 40px;
-    font-weight: 900;
+.cta-bg-container {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
 }
 
-.site-footer {
+.cta-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0.6;
+}
+
+/* Camada de suavização superior e inferior */
+.cta-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(to bottom, 
+        var(--bg-color) 0%, 
+        rgba(11, 11, 11, 0) 15%, 
+        rgba(11, 11, 11, 0) 85%, 
+        var(--bg-color) 100%);
+}
+
+/* Efeito extra de "desfoque" na margem superior solicitado */
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: rgba(11, 11, 11, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 3;
+    pointer-events: none;
+    mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+}
+
+.cta-content {
     position: relative;
     z-index: 10;
-    padding: 50px 5%;
     text-align: center;
-    background-color: #000;
+    max-width: 900px;
+    padding: 0 5%;
+    margin-bottom: 8vh; /* Espaço entre o botão e o rodapé */
 }
 
-.footer-logo {
-    width: 100px;
-    filter: grayscale(1) opacity(0.5);
+.cta-content h2 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1;
     margin-bottom: 20px;
-    transition: filter 0.3s ease;
+    letter-spacing: -1px;
+    color: #fff;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
 }
 
-.site-footer:hover .footer-logo {
-    filter: grayscale(0) opacity(1);
+.cta-content p {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    color: #cccccc;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
-.site-footer p {
-    color: #666;
+.cta-btn {
+    font-size: 1.2rem;
+    padding: 20px 50px;
+    box-shadow: 0 10px 30px rgba(253, 109, 20, 0.3);
+}
+
+/* =========================================
+   FOOTER PREMIUM (OVERLAY)
+   ========================================= */
+.site-footer {
+    width: 100%;
+    position: relative;
+    z-index: 20;
+    padding: 0 5% 0;
+}
+
+.footer-glass-box {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 20px 40px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-social-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #ffffff;
     font-size: 0.9rem;
-    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    opacity: 0.7;
 }
 
-.site-footer .copyright {
-    color: #444;
-    font-size: 0.8rem;
-    margin-top: 30px;
+.footer-social-link:hover {
+    opacity: 1;
+    color: #fd6d14;
+    transform: translateY(-2px);
+}
+
+.instagram-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.footer-brand-logo {
+    width: clamp(80px, 10vw, 120px);
+    height: auto;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-glass-box:hover .footer-brand-logo {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.copyright-text {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Responsividade Mobile do RodapÃ© */
+@media (max-width: 768px) {
+    .cta-section {
+        min-height: 90vh;
+        margin-top: 10vh;
+    }
+
+    .cta-content h2 {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+
+    .cta-content p {
+        font-size: 1rem;
+        margin-bottom: 25px;
+    }
+
+    .cta-btn {
+        padding: 14px 30px;
+        font-size: 0.95rem;
+    }
+
+    .footer-glass-box {
+        padding: 30px 20px;
+        border-radius: 15px;
+    }
+
+    .footer-content {
+        gap: 20px;
+    }
+
+    .footer-brand-logo {
+        width: 100px;
+    }
 }

@@ -13,6 +13,7 @@
     <!-- GSAP via CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 </head>
 <body>
 
@@ -85,7 +86,7 @@
                 <span class="text-orange" data-i18n="hero_title_2">ELITE</span>
             </h1>
             <p data-i18n="hero_subtitle">Gráficos esportivos que elevam o jogo ao nível global</p>
-            <a href="#" class="btn-primary" data-i18n="hero_btn">VER PORTFÓLIO <span class="arrow">&rarr;</span></a>
+            <a href="#portfolio" class="btn-primary" data-i18n="hero_btn">VER PORTFÓLIO <span class="arrow">&rarr;</span></a>
             
             <div class="scroll-indicator">
                 <span data-i18n="scroll">SCROLL</span>
@@ -145,30 +146,30 @@
         <div class="portfolio-grid">
             <!-- Bloco 1: Grande Esquerda, 2 Pequenas Direita (Imagens 1, 2, 3) -->
             <div class="portfolio-item work-large reveal-item">
-                <img src="assets/desktop/img1.png" alt="Art 1">
-                <div class="portfolio-overlay"><h3>PRO ATHLETE V1</h3></div>
+                <img src="assets/sessao grid/cr7 portugalw.webp" alt="Cristiano Ronaldo - Portugal">
+                <div class="portfolio-overlay"><h3>CRISTIANO RONALDO | PORTUGAL</h3></div>
             </div>
             <div class="portfolio-item work-small reveal-item">
-                <img src="assets/desktop/img2.png" alt="Art 2">
-                <div class="portfolio-overlay"><h3>PRO ATHLETE V2</h3></div>
+                <img src="assets/sessao grid/flamengo liberta estreiaw.webp" alt="Flamengo - Libertadores">
+                <div class="portfolio-overlay"><h3>FLAMENGO | LIBERTADORES</h3></div>
             </div>
             <div class="portfolio-item work-small reveal-item">
-                <img src="assets/desktop/img3.png" alt="Art 3">
-                <div class="portfolio-overlay"><h3>PRO ATHLETE V3</h3></div>
+                <img src="assets/sessao grid/fodenw.webp" alt="Phil Foden - Manchester City">
+                <div class="portfolio-overlay"><h3>PHIL FODEN | MANCHESTER CITY</h3></div>
             </div>
 
             <!-- Bloco 2: 2 Pequenas Esquerda, Grande Direita (Imagens 5, 4, 6 - Espelhado) -->
             <div class="portfolio-item work-small reveal-item">
-                <img src="assets/desktop/img5.png" alt="Art 5">
-                <div class="portfolio-overlay"><h3>ELITE GRAPHICS</h3></div>
+                <img src="assets/sessao grid/rafinhaw.webp" alt="Raphinha - FC Barcelona">
+                <div class="portfolio-overlay"><h3>RAPHINHA | FC BARCELONA</h3></div>
             </div>
             <div class="portfolio-item work-large reveal-item">
-                <img src="assets/desktop/img4.png" alt="Art 4">
-                <div class="portfolio-overlay"><h3>MATCHDAY SERIES</h3></div>
+                <img src="assets/sessao grid/luiz suaresw.webp" alt="Luis Suárez - Inter Miami">
+                <div class="portfolio-overlay"><h3>LUIS SUÁREZ | INTER MIAMI</h3></div>
             </div>
             <div class="portfolio-item work-small reveal-item">
-                <img src="assets/desktop/img6.png" alt="Art 6">
-                <div class="portfolio-overlay"><h3>VISIONARY</h3></div>
+                <img src="assets/sessao grid/sporting x benficaw.webp" alt="Sporting vs Benfica - Derby">
+                <div class="portfolio-overlay"><h3>DERBY | SPORTING vs BENFICA</h3></div>
             </div>
         </div>
     </section>
@@ -183,12 +184,12 @@
 
             <!-- Camada Base: Final Art (baixo) -->
             <div class="image-after">
-                <img src="assets/desktop/img6.png" alt="Final Art">
+                <img src="assets/sessao antes e depois/romariow.webp" alt="Final Art">
             </div>
             <!-- Camada Cima: Initial Photo (recortada) -->
             <div class="image-before">
                 <!-- Since we only have final arts, using a different art to simulate 'before' visually for logic testing -->
-                <img src="assets/desktop/img0.png" alt="Initial Photo">
+                <img src="assets/sessao antes e depois/romario1w.webp" alt="Initial Photo">
             </div>
             <div class="slider-handle">
                 <div class="arrows">↔</div>
@@ -198,60 +199,110 @@
     </section>
 
 
-    <!-- 4. Pinned Reveal Section (Dobra 6) -->
+    <!-- 4. Pinned Reveal Section (Dobra 6) — Montagem Sequencial -->
     <section class="dobra6-reveal-container">
         <div class="dobra6-sticky">
-            <picture>
-                <source media="(max-width: 768px)" srcset="assets/mobile/dobra6.png">
-                <img src="assets/desktop/dobra6.png" alt="Reveal Image">
-            </picture>
+            <!-- Desktop Frames -->
+            <div class="dobra6-frames desktop-frames">
+                <img class="dobra6-frame" src="assets/desktop/img1w.webp" alt="Edit Step 1">
+                <img class="dobra6-frame" src="assets/desktop/img2w.webp" alt="Edit Step 2">
+                <img class="dobra6-frame" src="assets/desktop/img3w.webp" alt="Edit Step 3">
+                <img class="dobra6-frame" src="assets/desktop/img4w.webp" alt="Edit Step 4">
+                <img class="dobra6-frame" src="assets/desktop/img5w.webp" alt="Edit Step 5">
+                <img class="dobra6-frame" src="assets/desktop/img6w.webp" alt="Edit Step 6">
+                <img class="dobra6-frame" src="assets/desktop/img7w.webp" alt="Edit Step 7">
+                <img class="dobra6-frame" src="assets/desktop/img8w.webp" alt="Edit Step 8">
+                <img class="dobra6-frame" src="assets/desktop/img9w.webp" alt="Edit Step 9">
+            </div>
+            <!-- Mobile Frames -->
+            <div class="dobra6-frames mobile-frames">
+                <img class="dobra6-frame" src="assets/mobile/img1w.webp" alt="Edit Step 1">
+                <img class="dobra6-frame" src="assets/mobile/img2w.webp" alt="Edit Step 2">
+                <img class="dobra6-frame" src="assets/mobile/img3w.webp" alt="Edit Step 3">
+                <img class="dobra6-frame" src="assets/mobile/img4w.webp" alt="Edit Step 4">
+                <img class="dobra6-frame" src="assets/mobile/img5w.webp" alt="Edit Step 5">
+                <img class="dobra6-frame" src="assets/mobile/img6w.webp" alt="Edit Step 6">
+                <img class="dobra6-frame" src="assets/mobile/img7w.webp" alt="Edit Step 7">
+                <img class="dobra6-frame" src="assets/mobile/img8w.webp" alt="Edit Step 8">
+                <img class="dobra6-frame" src="assets/mobile/img9w.webp" alt="Edit Step 9">
+            </div>
         </div>
     </section>
 
     <!-- 5. Gallery Section (Dobra 7) -->
-    <section class="dobra7-gallery">
+    <section class="dobra7-gallery" id="portfolio">
         <div class="gallery-container">
             <h2 class="text-center fade-up"><span class="text-white">PROJECTS</span> <span class="text-orange">ARCHIVE</span></h2>
             <div class="gallery-grid">
                 <!-- 12 Imagens Placeholder -->
-                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #1">
-                    <img src="assets/desktop/img1.png" alt="Project 1">
+                <div class="gallery-item reveal-item" data-description="NEYMAR JR | BRASIL">
+                    <img src="assets/sessao galeria/5w.webp" alt="Neymar Jr - Brasil">
                 </div>
-                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #2">
-                    <img src="assets/desktop/img2.png" alt="Project 2">
+                <div class="gallery-item reveal-item" data-description="FLORIAN WIRTZ | GERMANY vs NETHERLANDS">
+                    <img src="assets/sessao galeria/alemanha x holanda wirtzw.webp" alt="Florian Wirtz - Alemanha">
                 </div>
-                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #3">
-                    <img src="assets/desktop/img3.png" alt="Project 3">
+                <div class="gallery-item reveal-item" data-description="ARSENAL FC | SQUAD">
+                    <img src="assets/sessao galeria/arsenalw.webp" alt="Arsenal FC Squad">
                 </div>
-                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #4">
-                    <img src="assets/desktop/img4.png" alt="Project 4">
+                <div class="gallery-item reveal-item" data-description="JUDE BELLINGHAM | ENGLAND">
+                    <img src="assets/sessao galeria/bellinghamw.webp" alt="Jude Bellingham - England">
                 </div>
-                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #5">
-                    <img src="assets/desktop/img5.png" alt="Project 5">
+                <div class="gallery-item reveal-item" data-description="PHIL FODEN | CITY vs TOTTENHAM">
+                    <img src="assets/sessao galeria/city x tottenhamw.webp" alt="Phil Foden - City vs Tottenham">
                 </div>
-                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #6">
-                    <img src="assets/desktop/img6.png" alt="Project 6">
+                <div class="gallery-item reveal-item" data-description="MANCHESTER CITY | ELITE SQUAD">
+                    <img src="assets/sessao galeria/cityw.webp" alt="Manchester City Squad">
                 </div>
-                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #7">
-                    <img src="assets/desktop/img7.png" alt="Project 7">
+                <div class="gallery-item reveal-item" data-description="ERLING HAALAND | COMETA">
+                    <img src="assets/sessao galeria/cometa haalandw.webp" alt="Erling Haaland - Manchester City">
                 </div>
-                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #8">
-                    <img src="assets/desktop/img8.png" alt="Project 8">
+                <div class="gallery-item reveal-item" data-description="ANGEL DI MARIA | SL BENFICA">
+                    <img src="assets/sessao galeria/di mariaw.webp" alt="Angel Di Maria - Benfica">
                 </div>
-                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #9">
-                    <img src="assets/desktop/img9.png" alt="Project 9">
+                <div class="gallery-item reveal-item" data-description="PALMEIRAS | EM BUSCA DO TRI">
+                    <img src="assets/sessao galeria/em busca do triw.webp" alt="Palmeiras - Campeão">
                 </div>
-                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #10">
-                    <img src="assets/desktop/img1.png" alt="Project 10">
+                <div class="gallery-item reveal-item" data-description="ALEJANDRO GRIMALDO | LEVERKUSEN">
+                    <img src="assets/sessao galeria/grimaldow.webp" alt="Alejandro Grimaldo - Bayer Leverkusen">
                 </div>
-                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #11">
-                    <img src="assets/desktop/img2.png" alt="Project 11">
+                <div class="gallery-item reveal-item" data-description="LÉO JARDIM | VASCO DA GAMA">
+                    <img src="assets/sessao galeria/leo jardimw.webp" alt="Léo Jardim - Vasco">
                 </div>
-                <div class="gallery-item reveal-item" data-description="Elite Sports Visual #12">
-                    <img src="assets/desktop/img3.png" alt="Project 12">
+                <div class="gallery-item reveal-item" data-description="NEYMAR JR | SANTOS FC">
+                    <img src="assets/sessao galeria/ney santosw.webp" alt="Neymar Jr - Santos FC">
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- 6. CTA Section (Dobra 8) -->
+    <section class="cta-section" id="cta">
+        <div class="cta-bg-container">
+            <img src="assets/sessao%20cta%20e%20rodap%C3%A9.png" alt="Background Santa Design" class="cta-bg-image">
+            <div class="cta-overlay"></div>
+        </div>
+        <div class="cta-content">
+            <h2 data-i18n="cta_title">READY TO ELEVATE <span class="text-orange">YOUR IMAGE?</span></h2>
+            <p data-i18n="cta_subtitle">Transforme sua carreira em uma marca visual de elite.</p>
+            <a href="https://www.instagram.com/santaadesign" target="_blank" class="btn-primary cta-btn" data-i18n="cta_btn">
+                FALE COM A GENTE <span class="arrow">&rarr;</span>
+            </a>
+        </div>
+        
+        <!-- Footer Section inside CTA for glass effect -->
+        <footer class="site-footer">
+            <div class="footer-glass-box">
+                <div class="footer-content">
+                    <div class="footer-middle">
+                        <img src="assets/logo.png" alt="Santa Design" class="footer-brand-logo">
+                    </div>
+
+                    <div class="footer-bottom">
+                        <p class="copyright-text">todos os direitos reservado. 2026</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </section>
 
     <!-- Lightbox Modal -->
