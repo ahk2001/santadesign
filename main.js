@@ -761,7 +761,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const closeLightbox = () => {
             openTl.reverse();
-            document.body.style.overflow = ''; 
+            document.body.style.overflowY = 'auto'; 
         };
 
         closeBtn.addEventListener('click', closeLightbox);
