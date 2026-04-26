@@ -3,13 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santa Design | Portfólio</title>
+
+    <!-- SEO -->
+    <title>Santa Design | Design Esportivo de Elite</title>
+    <meta name="description" content="Santa Design — estúdio especializado em design gráfico esportivo de elite. Mais de 200 artes exclusivas para atletas e clubes em 7 países. Transformamos carreiras em marcas visuais icônicas.">
+    <meta name="keywords" content="design esportivo, arte esportiva, flyer de jogo, designer de futebol, matchday design, Santa Design, sports graphic design">
+    <meta name="author" content="Santa Design">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://santadesign.com/">
+
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Santa Design | Design Esportivo de Elite">
+    <meta property="og:description" content="Gráficos esportivos que elevam o jogo ao nível global. Mais de 200 artes exclusivas para atletas e clubes em 7 países.">
+    <meta property="og:image" content="assets/logo.png">
+    <meta property="og:url" content="https://santadesign.com/">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Santa Design | Design Esportivo de Elite">
+    <meta name="twitter:description" content="Gráficos esportivos que elevam o jogo ao nível global. Mais de 200 artes exclusivas.">
+    <meta name="twitter:image" content="assets/logo.png">
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com;">
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/logo.png">
-    <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css?v=2.0">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
     <!-- GSAP via CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -27,7 +61,6 @@
         </div>
     </nav>
 
-
     <!-- Tactile Preloader -->
     <div id="preloader" class="tactile-preloader">
         <div class="paper-texture"></div>
@@ -36,47 +69,45 @@
             
             <div class="logo-layers">
                 <!-- 1. Circulo Interno (SD) -->
-                <img src="assets/preloader/circulo%20interno.png" class="logo-part logo-center" alt="SD">
+                <img src="assets/preloader/circulo-interno.png" class="logo-part logo-center" alt="SD">
                 
                 <!-- 2. Circulo Externo (anel) -->
-                <img src="assets/preloader/circulo%20externo.png" class="logo-part logo-ring" alt="Ring">
+                <img src="assets/preloader/circulo-externo.png" class="logo-part logo-ring" alt="Ring">
                 
                 <!-- 3. Escrita Superior -->
-                <img src="assets/preloader/escrita%20superior.png" class="logo-part logo-text-top" alt="Santa Design Top">
+                <img src="assets/preloader/escrita-superior.png" class="logo-part logo-text-top" alt="Santa Design Top">
                 
                 <!-- 4. Escrita Inferior -->
-                <img src="assets/preloader/escrita%20inferior.png" class="logo-part logo-text-bottom" alt="Santa Design Bottom">
+                <img src="assets/preloader/escrita-inferior.png" class="logo-part logo-text-bottom" alt="Santa Design Bottom">
                 
                 <!-- 5. Estrela Esquerda -->
-                <img src="assets/preloader/estrela%20esquerda.png" class="logo-part logo-star-left" alt="Star Left">
+                <img src="assets/preloader/estrela-esquerda.png" class="logo-part logo-star-left" alt="Star Left">
                 
                 <!-- 6. Estrela Direita -->
-                <img src="assets/preloader/estrela%20direita.png" class="logo-part logo-star-right" alt="Star Right">
+                <img src="assets/preloader/estrela-direita.png" class="logo-part logo-star-right" alt="Star Right">
             </div>
         </div>
     </div>
-
-
 
     <!-- Parallax Hero Section -->
     <section class="hero-parallax">
         
         <!-- Desktop Layers -->
         <div class="parallax-layers desktop-layers">
-            <div class="layer layer-1" style="background-image: url('assets/home%20desktop/img1.png');"></div>
-            <div class="layer layer-2" style="background-image: url('assets/home%20desktop/img2.png');"></div>
-            <div class="layer layer-3" style="background-image: url('assets/home%20desktop/img3.png?v=2');"></div>
-            <div class="layer layer-4" style="background-image: url('assets/home%20desktop/img4.png?v=2');"></div>
-            <div class="layer layer-5" style="background-image: url('assets/home%20desktop/img5.png');"></div>
+            <div class="layer layer-1" style="background-image: url('assets/home-desktop/img1.png');"></div>
+            <div class="layer layer-2" style="background-image: url('assets/home-desktop/img2.png');"></div>
+            <div class="layer layer-3" style="background-image: url('assets/home-desktop/img3.png?v=2');"></div>
+            <div class="layer layer-4" style="background-image: url('assets/home-desktop/img4.png?v=2');"></div>
+            <div class="layer layer-5" style="background-image: url('assets/home-desktop/img5.png');"></div>
         </div>
 
         <!-- Mobile Layers -->
         <div class="parallax-layers mobile-layers">
-            <div class="layer layer-1" style="background-image: url('assets/home%20mobile/img1.png');"></div>
-            <div class="layer layer-2" style="background-image: url('assets/home%20mobile/img2.png');"></div>
-            <div class="layer layer-3" style="background-image: url('assets/home%20mobile/img3.png');"></div>
-            <div class="layer layer-4" style="background-image: url('assets/home%20mobile/img4.png');"></div>
-            <div class="layer layer-5" style="background-image: url('assets/home%20mobile/img5.png');"></div>
+            <div class="layer layer-1" style="background-image: url('assets/home-mobile/img1.png');"></div>
+            <div class="layer layer-2" style="background-image: url('assets/home-mobile/img2.png');"></div>
+            <div class="layer layer-3" style="background-image: url('assets/home-mobile/img3.png');"></div>
+            <div class="layer layer-4" style="background-image: url('assets/home-mobile/img4.png');"></div>
+            <div class="layer layer-5" style="background-image: url('assets/home-mobile/img5.png');"></div>
         </div>
 
         <div class="hero-content">
@@ -146,29 +177,29 @@
         <div class="portfolio-grid">
             <!-- Bloco 1: Grande Esquerda, 2 Pequenas Direita (Imagens 1, 2, 3) -->
             <div class="portfolio-item work-large reveal-item">
-                <img src="assets/sessao grid/cr7 portugalw.webp" alt="Cristiano Ronaldo - Portugal">
+                <img src="assets/portfolio-grid/cr7-portugalw.webp" alt="Cristiano Ronaldo - Portugal">
                 <div class="portfolio-overlay"><h3>CRISTIANO RONALDO | PORTUGAL</h3></div>
             </div>
             <div class="portfolio-item work-small reveal-item">
-                <img src="assets/sessao grid/flamengo liberta estreiaw.webp" alt="Flamengo - Libertadores">
+                <img src="assets/portfolio-grid/flamengo-liberta-estreiaw.webp" alt="Flamengo - Libertadores">
                 <div class="portfolio-overlay"><h3>FLAMENGO | LIBERTADORES</h3></div>
             </div>
             <div class="portfolio-item work-small reveal-item">
-                <img src="assets/sessao grid/fodenw.webp" alt="Phil Foden - Manchester City">
+                <img src="assets/portfolio-grid/fodenw.webp" alt="Phil Foden - Manchester City">
                 <div class="portfolio-overlay"><h3>PHIL FODEN | MANCHESTER CITY</h3></div>
             </div>
 
             <!-- Bloco 2: 2 Pequenas Esquerda, Grande Direita (Imagens 5, 4, 6 - Espelhado) -->
             <div class="portfolio-item work-small reveal-item">
-                <img src="assets/sessao grid/rafinhaw.webp" alt="Raphinha - FC Barcelona">
+                <img src="assets/portfolio-grid/rafinhaw.webp" alt="Raphinha - FC Barcelona">
                 <div class="portfolio-overlay"><h3>RAPHINHA | FC BARCELONA</h3></div>
             </div>
             <div class="portfolio-item work-large reveal-item">
-                <img src="assets/sessao grid/luiz suaresw.webp" alt="Luis Suárez - Inter Miami">
+                <img src="assets/portfolio-grid/luiz-suaresw.webp" alt="Luis Suárez - Inter Miami">
                 <div class="portfolio-overlay"><h3>LUIS SUÁREZ | INTER MIAMI</h3></div>
             </div>
             <div class="portfolio-item work-small reveal-item">
-                <img src="assets/sessao grid/sporting x benficaw.webp" alt="Sporting vs Benfica - Derby">
+                <img src="assets/portfolio-grid/sporting-x-benficaw.webp" alt="Sporting vs Benfica - Derby">
                 <div class="portfolio-overlay"><h3>DERBY | SPORTING vs BENFICA</h3></div>
             </div>
         </div>
@@ -184,12 +215,12 @@
 
             <!-- Camada Base: Final Art (baixo) -->
             <div class="image-after">
-                <img src="assets/sessao antes e depois/romariow.webp" alt="Final Art">
+                <img src="assets/before-after/romariow.webp" alt="Final Art">
             </div>
             <!-- Camada Cima: Initial Photo (recortada) -->
             <div class="image-before">
                 <!-- Since we only have final arts, using a different art to simulate 'before' visually for logic testing -->
-                <img src="assets/sessao antes e depois/romario1w.webp" alt="Initial Photo">
+                <img src="assets/before-after/romario1w.webp" alt="Initial Photo">
             </div>
             <div class="slider-handle">
                 <div class="arrows">↔</div>
@@ -234,42 +265,42 @@
         <div class="gallery-container">
             <h2 class="text-center fade-up"><span class="text-white" data-i18n="projects_title_1">PROJECTS</span> <span class="text-orange" data-i18n="projects_title_2">ARCHIVE</span></h2>
             <div class="gallery-grid">
-                <!-- 12 Imagens Placeholder -->
+                <!-- 12 Imagens -->
                 <div class="gallery-item reveal-item" data-description="NEYMAR JR | BRASIL">
-                    <img src="assets/sessao galeria/5w.webp" alt="Neymar Jr - Brasil">
+                    <img src="assets/gallery/5w.webp" alt="Neymar Jr - Brasil">
                 </div>
                 <div class="gallery-item reveal-item" data-description="FLORIAN WIRTZ | GERMANY vs NETHERLANDS">
-                    <img src="assets/sessao galeria/alemanha x holanda wirtzw.webp" alt="Florian Wirtz - Alemanha">
+                    <img src="assets/gallery/alemanha-x-holanda-wirtzw.webp" alt="Florian Wirtz - Alemanha">
                 </div>
                 <div class="gallery-item reveal-item" data-description="ARSENAL FC | SQUAD">
-                    <img src="assets/sessao galeria/arsenalw.webp" alt="Arsenal FC Squad">
+                    <img src="assets/gallery/arsenalw.webp" alt="Arsenal FC Squad">
                 </div>
                 <div class="gallery-item reveal-item" data-description="JUDE BELLINGHAM | ENGLAND">
-                    <img src="assets/sessao galeria/bellinghamw.webp" alt="Jude Bellingham - England">
+                    <img src="assets/gallery/bellinghamw.webp" alt="Jude Bellingham - England">
                 </div>
                 <div class="gallery-item reveal-item" data-description="PHIL FODEN | CITY vs TOTTENHAM">
-                    <img src="assets/sessao galeria/city x tottenhamw.webp" alt="Phil Foden - City vs Tottenham">
+                    <img src="assets/gallery/city-x-tottenhamw.webp" alt="Phil Foden - City vs Tottenham">
                 </div>
                 <div class="gallery-item reveal-item" data-description="MANCHESTER CITY | ELITE SQUAD">
-                    <img src="assets/sessao galeria/cityw.webp" alt="Manchester City Squad">
+                    <img src="assets/gallery/cityw.webp" alt="Manchester City Squad">
                 </div>
                 <div class="gallery-item reveal-item" data-description="ERLING HAALAND | COMETA">
-                    <img src="assets/sessao galeria/cometa haalandw.webp" alt="Erling Haaland - Manchester City">
+                    <img src="assets/gallery/cometa-haalandw.webp" alt="Erling Haaland - Manchester City">
                 </div>
                 <div class="gallery-item reveal-item" data-description="ANGEL DI MARIA | SL BENFICA">
-                    <img src="assets/sessao galeria/di mariaw.webp" alt="Angel Di Maria - Benfica">
+                    <img src="assets/gallery/di-mariaw.webp" alt="Angel Di Maria - Benfica">
                 </div>
                 <div class="gallery-item reveal-item" data-description="PALMEIRAS | EM BUSCA DO TRI">
-                    <img src="assets/sessao galeria/em busca do triw.webp" alt="Palmeiras - Campeão">
+                    <img src="assets/gallery/em-busca-do-triw.webp" alt="Palmeiras - Campeão">
                 </div>
                 <div class="gallery-item reveal-item" data-description="ALEJANDRO GRIMALDO | LEVERKUSEN">
-                    <img src="assets/sessao galeria/grimaldow.webp" alt="Alejandro Grimaldo - Bayer Leverkusen">
+                    <img src="assets/gallery/grimaldow.webp" alt="Alejandro Grimaldo - Bayer Leverkusen">
                 </div>
                 <div class="gallery-item reveal-item" data-description="LÉO JARDIM | VASCO DA GAMA">
-                    <img src="assets/sessao galeria/leo jardimw.webp" alt="Léo Jardim - Vasco">
+                    <img src="assets/gallery/leo-jardimw.webp" alt="Léo Jardim - Vasco">
                 </div>
                 <div class="gallery-item reveal-item" data-description="NEYMAR JR | SANTOS FC">
-                    <img src="assets/sessao galeria/ney santosw.webp" alt="Neymar Jr - Santos FC">
+                    <img src="assets/gallery/ney-santosw.webp" alt="Neymar Jr - Santos FC">
                 </div>
             </div>
         </div>
@@ -278,13 +309,13 @@
     <!-- 6. CTA Section (Dobra 8) -->
     <section class="cta-section" id="cta">
         <div class="cta-bg-container">
-            <img src="assets/sessao%20cta%20e%20rodap%C3%A9.png" alt="Background Santa Design" class="cta-bg-image">
+            <img src="assets/cta-bg.png" alt="Background Santa Design" class="cta-bg-image">
             <div class="cta-overlay"></div>
         </div>
         <div class="cta-content">
             <h2 data-i18n="cta_title">READY TO ELEVATE <span class="text-orange">YOUR IMAGE?</span></h2>
             <p data-i18n="cta_subtitle">Transforme sua carreira em uma marca visual de elite.</p>
-            <a href="https://www.instagram.com/santaadesign" target="_blank" class="btn-primary cta-btn" data-i18n="cta_btn">
+            <a href="https://www.instagram.com/santaadesign" target="_blank" rel="noopener noreferrer" class="btn-primary cta-btn" data-i18n="cta_btn">
                 FALE COM A GENTE <span class="arrow">&rarr;</span>
             </a>
         </div>
@@ -314,6 +345,6 @@
         </div>
     </div>
 
-    <script src="main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

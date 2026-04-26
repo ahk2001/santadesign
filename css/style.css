@@ -249,6 +249,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* Ajuste solicitado: 70px para esquerda e 35px para baixo */
@@ -931,7 +933,9 @@ body {
     object-position: center;
     display: block;
     opacity: 0;
-    will-change: opacity;
+    will-change: opacity, transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* Primeira imagem visÃ­vel por padrÃ£o */

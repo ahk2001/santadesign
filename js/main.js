@@ -303,11 +303,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 gsap.to(layer, {
                     y: () => window.innerHeight * speeds[index],
                     ease: "none",
+                    force3D: true,
                     scrollTrigger: {
                         trigger: ".hero-parallax",
                         start: "top top",
                         end: "bottom top",
-                        scrub: true,
+                        scrub: 1.5, // Suavizado de true para 1.5
                         invalidateOnRefresh: true
                     }
                 });
@@ -322,13 +323,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     const y = (e.clientY / window.innerHeight - 0.5) * 2;
 
                     layers.forEach((layer, index) => {
+                        // Usar x e yPercent para evitar conflito com o 'y' (pixel) do scroll parallax
                         const movementX = x * (index + 1) * 8;
-                        const movementY = y * (index + 1) * 8;
+                        const movementYPercent = y * (index + 1) * 1.5; // Escala reduzida para percent
 
                         gsap.to(layer, {
                             x: movementX,
-                            y: movementY,
-                            duration: 1,
+                            yPercent: movementYPercent,
+                            duration: 1.2,
                             ease: "power2.out",
                             overwrite: "auto"
                         });
@@ -605,11 +607,12 @@ document.addEventListener("DOMContentLoaded", () => {
             gsap.to(frame, {
                 opacity: 1,
                 ease: "none",
+                force3D: true,
                 scrollTrigger: {
                     trigger: container,
                     start: () => `top+=${container.offsetHeight * startPercent / 100} top`,
                     end: () => `top+=${container.offsetHeight * endPercent / 100} top`,
-                    scrub: 0.3,
+                    scrub: 0.8, // Suavizado de 0.3 para 0.8
                     invalidateOnRefresh: true
                 }
             });

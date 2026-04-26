@@ -1,0 +1,19 @@
+# Arquivos de desenvolvimento (não enviar ao deploy)
+_dev/
+
+# Sistema operacional
+Thumbs.db
+.DS_Store
+desktop.ini
+*.lnk
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
