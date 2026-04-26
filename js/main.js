@@ -300,15 +300,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Scroll Parallax (Both Desktop & Mobile)
             layers.forEach((layer, index) => {
+                // No mobile, usamos yPercent para maior performance e scrub maior para suavidade
+                const parallaxY = isDesktop ? { y: () => window.innerHeight * speeds[index] } : { yPercent: speeds[index] * 100 };
+                
                 gsap.to(layer, {
-                    y: () => window.innerHeight * speeds[index],
+                    ...parallaxY,
                     ease: "none",
                     force3D: true,
                     scrollTrigger: {
                         trigger: ".hero-parallax",
                         start: "top top",
                         end: "bottom top",
-                        scrub: 1.5, // Suavizado de true para 1.5
+                        scrub: isDesktop ? 1.5 : 2.5, // Scrub maior no mobile para suavizar lags de renderização
                         invalidateOnRefresh: true
                     }
                 });

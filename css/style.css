@@ -255,8 +255,11 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     will-change: transform;
+    transform: translate3d(0, 0, 0); /* Força aceleração de hardware */
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-perspective: 1000;
 }
 
 /* Ajuste solicitado: 70px para esquerda e 35px para baixo */
