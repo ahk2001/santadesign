@@ -639,9 +639,12 @@ body {
 .portfolio-section {
     padding-top: 10vh;
     padding-bottom: 10vh;
-    background-color: var(--bg-color);
+    background-color: #0b0b0b; /* Unificando cor para evitar gaps */
     border: none !important;
     outline: none !important;
+    position: relative;
+    z-index: 4;
+    overflow: hidden; /* Evita vazar qualquer brilho laranja interno */
 }
 
 .portfolio-grid {
@@ -761,6 +764,8 @@ body {
     outline: none !important;
     position: relative;
     z-index: 5;
+    margin-top: -2px; /* Sobrepõe levemente a seção anterior para esconder gaps no Android */
+    padding-top: calc(15vh + 2px); /* Compensa o margin-top negativo */
 }
 
 .process-section h2 {
