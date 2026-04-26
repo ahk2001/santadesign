@@ -853,17 +853,36 @@ body {
     z-index: 5;
     margin: 0;
     cursor: ew-resize;
-    touch-action: none; /* Crucial para iOS Safari permitir arraste sem scroll */
+    touch-action: none;
     -webkit-tap-highlight-color: transparent;
+    border: none; /* Remove bordas do input */
 }
 
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 60px; /* Aumentado para melhor área de toque no mobile */
-    height: 1000px; /* Garante cobertura vertical total no arraste */
+    width: 60px;
+    height: 100%;
     background: transparent;
     cursor: ew-resize;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.slider::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.slider::-moz-range-thumb {
+    width: 60px;
+    height: 100%;
+    background: transparent;
+    cursor: ew-resize;
+    border: none;
 }
 
 .slider-handle {
