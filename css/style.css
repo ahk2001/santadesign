@@ -861,13 +861,14 @@ body {
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 60px;
-    height: 100%;
-    background: transparent;
+    width: 80px; /* Aumentado para 80px para facilitar ainda mais o toque */
+    height: 600px; /* Altura grande para detecção de arraste no Safari */
+    background: rgba(255, 255, 255, 0.01); /* Quase invisível, mas "físico" para o toque */
     cursor: ew-resize;
     border: none;
     outline: none;
     box-shadow: none;
+    margin-top: 0;
 }
 
 .slider::-webkit-slider-runnable-track {
