@@ -283,13 +283,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Increased parallax effect for mobile
+        // Parallax effect for mobile (Ajustado para yPercent)
         const mobileSpeeds = [
-            0.08,
-            0.18,
-            0.35,
-            0.55,
-            0.8
+            0.05,  // Layer 1 (Fundo)
+            0.12,  // Layer 2
+            0.20,  // Layer 3
+            0.32,  // Layer 4
+            0.45   // Layer 5 (Frente)
         ];
 
         const speeds = isDesktop ? baseSpeeds : mobileSpeeds;
