@@ -848,16 +848,20 @@ body {
     height: 100%;
     outline: none;
     background: transparent;
+    -webkit-appearance: none;
     appearance: none;
     z-index: 5;
     margin: 0;
     cursor: ew-resize;
+    touch-action: none; /* Crucial para iOS Safari permitir arraste sem scroll */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
     appearance: none;
-    width: 40px;
-    height: 100%;
+    width: 60px; /* Aumentado para melhor área de toque no mobile */
+    height: 1000px; /* Garante cobertura vertical total no arraste */
     background: transparent;
     cursor: ew-resize;
 }
@@ -880,17 +884,16 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     background-color: #fd6d14;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    font-weight: bold;
-    font-size: 1.2rem;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 20px rgba(253, 109, 20, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 
