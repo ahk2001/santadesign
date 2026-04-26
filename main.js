@@ -627,20 +627,23 @@ document.addEventListener("DOMContentLoaded", () => {
             about_title_1: "Onde a Performance",
             about_title_2: "encontra o Design.",
             about_p1: "Na Santa Design, acreditamos que a imagem de um atleta é tão decisiva quanto o seu desempenho em campo. Com mais de 4 anos de especialização no mercado de esportes de elite, transformamos carreiras em marcas visuais icônicas.",
-            about_p2: "De flyers de dia de jogo a campanhas globais, nossa assinatura está presente em 7 países, conectando jogadores de alto nível aos seus fãs através de uma estética impecável e agressiva. Com mais de 200 artes exclusivas em nosso portfólio, não apenas entregamos design; entregamos autoridade visual para aqueles que nasceram para vencer.",
+            about_p2: "De artes de dia de jogo a campanhas globais, nossa assinatura está presente em 7 países, conectando jogadores de alto nível aos seus fãs através de uma estética impecável e agressiva. Com mais de 200 artes exclusivas em nosso portfólio, não apenas entregamos design; entregamos autoridade visual para aqueles que nasceram para vencer.",
             stats_years: "ANOS NO MERCADO",
             stats_years_desc: "Especialização em design esportivo de elite",
-            stats_countries: "PAÍSES ALCANZADOS",
+            stats_countries: "PAÍSES ALCANÇADOS",
             stats_countries_desc: "Presença global no futebol profissional",
             stats_art: "ARTES EXCLUSIVAS",
             stats_art_desc: "Para atletas de alto desempenho",
             process_title: "NOSSO PROCESSO",
             final_art: "ARTE FINAL",
             initial_photo: "FOTO INICIAL",
+            projects_title_1: "ARQUIVO DE",
+            projects_title_2: "PROJETOS",
             cta_title: 'PRONTO PARA ELEVAR <span class="text-orange">SUA IMAGEM?</span>',
+            cta_subtitle: "Transforme sua carreira em uma marca visual de elite.",
             cta_btn: 'FALE COM A GENTE <span class="arrow">&rarr;</span>',
             footer_text: "Transformando atletas em marcas visuais icônicas desde 2020",
-            footer_copyright: "Todos os direitos reservados."
+            footer_copyright: "todos os direitos reservados. 2026"
         },
         en: {
             hero_title_1: "DESIGNING THE",
@@ -651,7 +654,7 @@ document.addEventListener("DOMContentLoaded", () => {
             about_title_1: "Where Performance",
             about_title_2: "meets Design.",
             about_p1: "At Santa Design, we believe that an athlete's image is as decisive as their performance on the field. With over 4 years of specialization in the elite sports market, we transform careers into iconic visual brands.",
-            about_p2: "From matchday flyers to global campaigns, our signature is present in 7 countries, connecting high-level players to their fans through impeccable and aggressive aesthetics. With over 200 exclusive artworks in our portfolio, we don't just deliver design; we deliver visual authority for those born to win.",
+            about_p2: "From matchday artworks to global campaigns, our signature is present in 7 countries, connecting high-level players to their fans through impeccable and aggressive aesthetics. With over 200 exclusive artworks in our portfolio, we don't just deliver design; we deliver visual authority for those born to win.",
             stats_years: "YEARS IN THE MARKET",
             stats_years_desc: "Specialization in elite sports design",
             stats_countries: "COUNTRIES REACHED",
@@ -661,10 +664,13 @@ document.addEventListener("DOMContentLoaded", () => {
             process_title: "OUR PROCESS",
             final_art: "FINAL ART",
             initial_photo: "INITIAL PHOTO",
+            projects_title_1: "PROJECTS",
+            projects_title_2: "ARCHIVE",
             cta_title: 'READY TO ELEVATE <span class="text-orange">YOUR IMAGE?</span>',
+            cta_subtitle: "Transform your career into an elite visual brand.",
             cta_btn: 'CONTACT US <span class="arrow">&rarr;</span>',
             footer_text: "Transforming athletes into iconic visual brands since 2020",
-            footer_copyright: "All rights reserved."
+            footer_copyright: "all rights reserved. 2026"
         },
         es: {
             hero_title_1: "DISEÑANDO LA",
@@ -675,7 +681,7 @@ document.addEventListener("DOMContentLoaded", () => {
             about_title_1: "Donde el Rendimiento",
             about_title_2: "encuentra el Diseño.",
             about_p1: "En Santa Design, creemos que la imagen de un atleta es tan decisiva como su desempeño en el campo. Con más de 4 años de especialización en el mercado deportivo de élite, transformamos carreras en marcas visuales icónicas.",
-            about_p2: "Desde folletos para días de partido até campañas globales, nuestra firma está presente en 7 países, conectando a jugadores de alto nivel con sus fanáticos a través de una estética impecable y agresiva. Con más de 200 obras de arte exclusivas en nuestro portafolio, no solo entregamos diseño; entregamos autoridad visual para aquellos que nacieron para ganar.",
+            about_p2: "Desde artes para días de partido hasta campañas globales, nuestra firma está presente en 7 países, conectando a jugadores de alto nivel con sus fanáticos a través de una estética impecable y agresiva. Con más de 200 obras de arte exclusivas en nuestro portafolio, no solo entregamos diseño; entregamos autoridad visual para aquellos que nacieron para ganar.",
             stats_years: "AÑOS EN EL MERCADO",
             stats_years_desc: "Especialización en diseño deportivo de élite",
             stats_countries: "PAÍSES ALCANZADOS",
@@ -685,10 +691,13 @@ document.addEventListener("DOMContentLoaded", () => {
             process_title: "NUESTRO PROCESO",
             final_art: "ARTE FINAL",
             initial_photo: "FOTO INICIAL",
+            projects_title_1: "ARCHIVO DE",
+            projects_title_2: "PROYECTOS",
             cta_title: '¿LISTO PARA ELEVAR <span class="text-orange">TU IMAGEN?</span>',
-            cta_btn: 'HABLA COM NOSOTROS <span class="arrow">&rarr;</span>',
-            footer_text: "Transformando atletas em marcas visuais icônicas desde 2020",
-            footer_copyright: "Todos los derechos reservados."
+            cta_subtitle: "Transforma tu carrera en una marca visual de élite.",
+            cta_btn: 'HABLA CON NOSOTROS <span class="arrow">&rarr;</span>',
+            footer_text: "Transformando atletas en marcas visuales icónicas desde 2020",
+            footer_copyright: "todos los derechos reservados. 2026"
         }
     };
 
