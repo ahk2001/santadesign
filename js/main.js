@@ -300,13 +300,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Scroll Parallax (Both Desktop & Mobile)
             layers.forEach((layer, index) => {
-                // No mobile, desativamos o parallax das camadas 2 e 4 (index 1 e 3) para economizar GPU
-                // Isso reduz a carga de 5 para 3 camadas simultâneas, o que ajuda muito no Android.
-                if (!isDesktop && (index === 1 || index === 3)) {
-                    gsap.set(layer, { y: 0 }); // Mantém estática
-                    return; 
-                }
-
                 const parallaxY = isDesktop ? { y: () => window.innerHeight * speeds[index] } : { yPercent: speeds[index] * 100 };
                 
                 gsap.to(layer, {
@@ -317,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         trigger: ".hero-parallax",
                         start: "top top",
                         end: "bottom top",
-                        scrub: isDesktop ? 1.5 : 0.5, // Scrub menor no mobile para ser mais responsivo se a renderização for lenta
+                        scrub: isDesktop ? 1.5 : 1.0, // Scrub suave agora que as imagens são leves
                         invalidateOnRefresh: true
                     }
                 });
