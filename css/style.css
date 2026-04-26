@@ -270,7 +270,9 @@ body {
     .layer {
         top: -45%;
         height: 190%;
-        background-size: contain;
+        background-size: cover; /* Volta a preencher a tela toda */
+        width: 110%; /* Reduzi de 120% para 110% para diminuir o corte lateral */
+        left: -5%; /* Centraliza com o novo width */
     }
 
     /* Jogador pequeno: mais para esquerda e para cima + opacidade 20% + deslocamento 20px esquerda */
@@ -959,7 +961,7 @@ body {
     .dobra6-frames.mobile-frames { display: block; }
 
     .dobra6-frame {
-        object-fit: contain; /* Evita corte lateral das artes de edição */
+        object-fit: cover; /* Volta a preencher a tela toda */
         background-color: #000;
     }
 }
