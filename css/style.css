@@ -11,6 +11,10 @@
     box-sizing: border-box;
 }
 
+html {
+    background-color: var(--bg-color);
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -137,6 +141,8 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
+    height: 100dvh;
+    min-height: 100%;
     background-color: #0b0b0b;
     z-index: 9999;
     display: flex;
@@ -264,6 +270,7 @@ body {
     .layer {
         top: -45%;
         height: 190%;
+        background-size: contain;
     }
 
     /* Jogador pequeno: mais para esquerda e para cima + opacidade 20% + deslocamento 20px esquerda */
@@ -950,6 +957,11 @@ body {
 @media (max-width: 768px) {
     .dobra6-frames.desktop-frames { display: none; }
     .dobra6-frames.mobile-frames { display: block; }
+
+    .dobra6-frame {
+        object-fit: contain; /* Evita corte lateral das artes de edição */
+        background-color: #000;
+    }
 }
 
 /* Ajuste nas dobras adjacentes para garantir a sobreposiÃ§Ã£o */
