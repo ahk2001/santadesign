@@ -640,6 +640,8 @@ body {
     padding-top: 10vh;
     padding-bottom: 10vh;
     background-color: var(--bg-color);
+    border: none !important;
+    outline: none !important;
 }
 
 .portfolio-grid {
@@ -755,6 +757,10 @@ body {
     background-color: #0b0b0b;
     padding: 15vh 5%;
     overflow: hidden;
+    border: none !important;
+    outline: none !important;
+    position: relative;
+    z-index: 5;
 }
 
 .process-section h2 {
